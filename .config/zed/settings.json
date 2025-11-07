@@ -152,6 +152,10 @@
     "light": "One Light",
     "dark": "One Dark"
   },
+  "terminal": {
+      "font_family": "JetBrainsMono Nerd Font",
+      "font_size": 14
+  },
   "autosave": "on_focus_change",
   "format_on_save": "off"
 }
