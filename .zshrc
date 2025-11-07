@@ -47,7 +47,7 @@ export JAVA_HOME="/usr/lib64/jvm/java-1.8.0-openjdk-1.8.0/jre"
 export PATH=$PATH:/usr/sbin:~/.local/bin
 
 # ALIASES
-source $HOME/.aliases
+[[ -f ~/.zsh/aliases.zsh ]] && source ~/.zsh/aliases.zsh
 
 # ---------------------------------------------------------------------------------------
 # --------------E-N-D---Z-S-H---C-O-N-F-I-G----------------------------------------------

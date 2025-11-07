@@ -7,7 +7,7 @@ alias zshreload="source ~/.zshrc && clear"
 alias cls="clear && ls"
 alias ed="$EDITOR"
 alias dot="$HOME/dotfiles"
-alias ls="exa --icons"
+alias ls="eza --icons --group-directories-first"
 
 # Git aliases
 alias ga="git add"
