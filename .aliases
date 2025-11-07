@@ -1,0 +1,32 @@
+# Zsh
+alias zshrc="$EDITOR ~/.zshrc"
+alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
+alias zshreload="source ~/.zshrc && clear"
+
+# Terminal
+alias cls="clear && ls"
+alias ed="$EDITOR"
+alias dot="$HOME/dotfiles"
+alias ls="exa --icons"
+
+# Git aliases
+alias ga="git add"
+alias gc="git commit -m"
+alias gs="git status"
+alias gsw="git switch"
+alias gp="git push"
+alias gl="git log"
+alias gll="git log --oneline --graph --all --decorate"
+
+# Docker
+alias dco="docker compose"
+alias dcolog="docker compose logs"
+alias dps="docker ps"
+alias dpa="docker ps -a"
+alias dl="docker ps -l -q"
+alias dx="docker exec -it"
+
+# My Organization
+alias cloudrader="cd ~/Git/CloudRader"
+alias cr-rapi="cd ~/Git/CloudRader/reservium-api/"
+alias cr-rui="cd ~/Git/CloudRader/reservium-ui/"

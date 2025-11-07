@@ -22,7 +22,7 @@ WHITE='\033[0;36m'
 CEND='\033[0m' # No color (default text color)
 
 # Vars
-EDITOR="vim"
+EDITOR="nano"
 
 # ZSH Settings
 ZSH_THEME="powerlevel10k/powerlevel10k"
@@ -47,52 +47,7 @@ export JAVA_HOME="/usr/lib64/jvm/java-1.8.0-openjdk-1.8.0/jre"
 export PATH=$PATH:/usr/sbin:~/.local/bin
 
 # ALIASES
-alias zshrc="$EDITOR ~/.zshrc"
-alias ohmyzsh="$EDITOR ~/.oh-my-zsh"
-alias zshreload="source ~/.zshrc && clear"
-
-alias get="sudo dnf install"
-alias remove="sudo dnf remove"
-alias installed="dnf list installed"
-alias search="dnf search"
-
-alias module="sudo npm install"
-alias pi="sudo pip3 install"
-
-alias cd-js="cd ~/Desktop/JS"
-alias cd-web="cd ~/Desktop/Web"
-alias cd-react="cd ~/Desktop/React"
-alias rn-run="sh ~/scripts/rn-runner.sh"
-
-alias dev="cd ~/Development"
-
-alias ga="g add"
-alias gc="g commit -m"
-alias gp="g push"
-
-alias sys="sudo systemctl"
-alias ls="exa --icons"
-
-alias temperature="sensors | grep °C"
-alias rneofetch="neofetch | lolcat"
-alias neofetch="neofetch --ascii ~/.config/neofetch/bongo.txt"
-alias hardware="inxi"
-alias iso="sudo dd status=progress of=/dev/sdb if="
-alias v="$EDITOR "
-alias cp="cp -r "
-alias scp="scp -r "
-alias cls="clear && ls"
-alias dd="dd status=progress "
-alias format="sudo mkfs.vfat -IF 32 "
-alias noindex="tracker daemon -k"
-alias rt="gio trash "
-mcd() {
-  md $1
-  cd $1
-}
-
-#FUNCTIONS
-alias compile="g++ -std=c++17 -Wall -pedantic $program -g -fsanitize=address && ./a.out"
+source $HOME/.aliases
 
 # ---------------------------------------------------------------------------------------
 # --------------E-N-D---Z-S-H---C-O-N-F-I-G----------------------------------------------
@@ -102,22 +57,6 @@ alias compile="g++ -std=c++17 -Wall -pedantic $program -g -fsanitize=address && 
 [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
 
 source /Users/Artyom_1/.docker/init-zsh.sh || true # Added by Docker Desktop
-
-# >>> conda initialize >>>
-# !! Contents within this block are managed by 'conda init' !!
-__conda_setup="$('/Users/Artyom_1/anaconda3/bin/conda' 'shell.zsh' 'hook' 2> /dev/null)"
-if [ $? -eq 0 ]; then
-    eval "$__conda_setup"
-else
-    if [ -f "/Users/Artyom_1/anaconda3/etc/profile.d/conda.sh" ]; then
-        . "/Users/Artyom_1/anaconda3/etc/profile.d/conda.sh"
-    else
-        export PATH="/Users/Artyom_1/anaconda3/bin:$PATH"
-    fi
-fi
-unset __conda_setup
-# <<< conda initialize <<<
-
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
