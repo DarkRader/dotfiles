@@ -1,0 +1,157 @@
+// Zed settings
+//
+// For information on how to configure Zed, see the Zed
+// documentation: https://zed.dev/docs/configuring-zed
+//
+// To see all of Zed's default settings without changing yourse
+// custom settings, run `zed: open default settings` from the
+// command palette (cmd-shift-p / ctrl-shift-p)
+{
+  "ssh_connections": [
+    {
+      "host": "147.32.104.72",
+      "username": "root",
+      "args": [],
+      "projects": [
+        {
+          "paths": [
+            "/home"
+          ]
+        },
+        {
+          "paths": [
+            "/opt"
+          ]
+        },
+        {
+          "paths": [
+            "/root"
+          ]
+        }
+      ]
+    },
+    {
+      "host": "147.32.104.72",
+      "username": "root",
+      "args": [],
+      "projects": []
+    },
+    {
+      "host": "147.32.104.72",
+      "username": "root",
+      "args": [],
+      "projects": []
+    },
+    {
+      "host": "147.32.104.73",
+      "username": "root",
+      "args": [],
+      "projects": [
+        {
+          "paths": [
+            "/opt"
+          ]
+        }
+      ]
+    },
+    {
+      "host": "147.32.104.73",
+      "username": "root",
+      "args": [],
+      "projects": []
+    },
+    {
+      "host": "147.32.104.73",
+      "username": "root",
+      "args": [],
+      "projects": [
+        {
+          "paths": [
+            "/opt"
+          ]
+        }
+      ]
+    },
+    {
+      "host": "147.32.104.73",
+      "username": "root",
+      "args": [],
+      "projects": [
+        {
+          "paths": [
+            "/opt"
+          ]
+        }
+      ]
+    },
+    {
+      "host": "10.0.11.120",
+      "username": "root",
+      "args": [],
+      "projects": []
+    },
+    {
+      "host": "10.0.11.120",
+      "username": "root",
+      "args": [],
+      "projects": [
+        {
+          "paths": [
+            "/home"
+          ]
+        },
+        {
+          "paths": [
+            "/opt"
+          ]
+        }
+      ]
+    },
+    {
+      "host": "10.0.11.122",
+      "username": "root",
+      "args": [],
+      "projects": [
+        {
+          "paths": [
+            "/home"
+          ]
+        }
+      ]
+    },
+    {
+      "host": "10.0.11.125",
+      "username": "root",
+      "args": [],
+      "projects": [
+        {
+          "paths": [
+            "/opt"
+          ]
+        }
+      ]
+    },
+    {
+      "host": "10.0.11.126",
+      "username": "root",
+      "args": [],
+      "projects": [
+        {
+          "paths": [
+            "/opt"
+          ]
+        }
+      ]
+    }
+  ],
+  "base_keymap": "JetBrains",
+  "ui_font_size": 16,
+  "buffer_font_size": 15,
+  "theme": {
+    "mode": "system",
+    "light": "One Light",
+    "dark": "One Dark"
+  },
+  "autosave": "on_focus_change",
+  "format_on_save": "off"
+}
