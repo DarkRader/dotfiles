@@ -1,7 +1,7 @@
 # p10k enable
-if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
-fi
+# if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
+#   source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+# fi
 
 # ---------------------------------------------------------------------------------------
 # ----------------------Z-S-H---C-O-N-F-I-G----------------------------------------------
@@ -25,7 +25,7 @@ CEND='\033[0m' # No color (default text color)
 EDITOR="nano"
 
 # ZSH Settings
-ZSH_THEME="powerlevel10k/powerlevel10k"
+# ZSH_THEME="powerlevel10k/powerlevel10k"
 ZSH_COLORIZE_TOOL="pygmentize"
 ZSH_DISABLE_COMPFIX="true"
 POWERLEVEL9K_MODE="nerdfont-complete"
@@ -46,20 +46,23 @@ source $ZSH/oh-my-zsh.sh
 export JAVA_HOME="/usr/lib64/jvm/java-1.8.0-openjdk-1.8.0/jre"
 export PATH=$PATH:/usr/sbin:~/.local/bin
 
+[[ -f ~/.zsh/starship.zsh ]] && source ~/.zsh/starship.zsh
+[[ -f ~/.zsh/nvm.zsh ]] && source ~/.zsh/nvm.zsh
+
 # ALIASES
 [[ -f ~/.zsh/aliases.zsh ]] && source ~/.zsh/aliases.zsh
+
+# Load Starship
+eval "$(starship init zsh)"
+
+# p10k ending
+# [[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# [[ -f ~/.zsh/starship.zsh ]] && source ~/.zsh/starship.zsh
 
 # ---------------------------------------------------------------------------------------
 # --------------E-N-D---Z-S-H---C-O-N-F-I-G----------------------------------------------
 # ---------------------------------------------------------------------------------------
 
-# p10k ending
-[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+# source /Users/Artyom_1/.docker/init-zsh.sh || true # Added by Docker Desktop
 
-source /Users/Artyom_1/.docker/init-zsh.sh || true # Added by Docker Desktop
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-export PATH="/Applications/Visual Studio Code.app/Contents/Resources/app/bin:$PATH"
 export PATH="$HOME/.local/python-3.13.3-tk/bin:$PATH"
