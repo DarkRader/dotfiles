@@ -9,8 +9,7 @@
 
 #clear another string in terminal
 clear
-#Greeting
-echo "                           WELCOME TO TERMINAL"
+
 # Colors
 BLACK='\033[0;30m'
 RED='\033[0;31m'

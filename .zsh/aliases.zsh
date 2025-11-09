@@ -28,5 +28,6 @@ alias dx="docker exec -it"
 
 # My Organization
 alias cloudrader="cd ~/Git/CloudRader"
-alias cr-rapi="cd ~/Git/CloudRader/reservium-api/"
-alias cr-rui="cd ~/Git/CloudRader/reservium-ui/"
+alias reservium-api="cd ~/Git/CloudRader/reservium-api/"
+alias reservium-ui="cd ~/Git/CloudRader/reservium-ui/"
+alias dotfiles="cd ~/dotfiles"

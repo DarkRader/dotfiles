@@ -50,7 +50,7 @@ format = 'at [$path]($style)[$read_only]($read_only_style) '
 
 # Shows current git branch
 [git_branch]
-symbol = ' '
+symbol = '󰘬 '
 format = 'via [$symbol$branch]($style)'
 # truncation_length = 4
 truncation_symbol = '…/'
@@ -89,6 +89,7 @@ disabled = true
 disabled = true
 
 [python]
+symbol = "󰌠 "
 disabled = false
 
 [nodejs]
