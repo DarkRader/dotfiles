@@ -29,7 +29,12 @@ ZSH_COLORIZE_TOOL="pygmentize"
 ZSH_DISABLE_COMPFIX="true"
 POWERLEVEL9K_MODE="nerdfont-complete"
 export ZSH="$HOME/.oh-my-zsh"
-#export JAVA_HOME="$(/Library/Java/JavaVirtualMachines/temurin-17.jdk/Contents/Home)"
+
+# Java
+export JAVA_HOME=$(/usr/libexec/java_home)
+export PATH="$JAVA_HOME/bin:$PATH"
+
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
 
 # PLUGINS
 plugins=(git colorize colored-man-pages zsh-syntax-highlighting command-not-found)
@@ -40,10 +45,6 @@ source $ZSH/oh-my-zsh.sh
 # Greeting
 # echo "🕑 $(date +"%Y.%m.%d %T")"
 # echo
-
-# PATH
-export JAVA_HOME="/usr/lib64/jvm/java-1.8.0-openjdk-1.8.0/jre"
-export PATH=$PATH:/usr/sbin:~/.local/bin
 
 [[ -f ~/.zsh/starship.zsh ]] && source ~/.zsh/starship.zsh
 [[ -f ~/.zsh/nvm.zsh ]] && source ~/.zsh/nvm.zsh
@@ -65,3 +66,11 @@ eval "$(starship init zsh)"
 # source /Users/Artyom_1/.docker/init-zsh.sh || true # Added by Docker Desktop
 
 export PATH="$HOME/.local/python-3.13.3-tk/bin:$PATH"
+
+export NVM_DIR="$HOME/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
