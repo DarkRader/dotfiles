@@ -31,10 +31,13 @@ POWERLEVEL9K_MODE="nerdfont-complete"
 export ZSH="$HOME/.oh-my-zsh"
 
 # Java
-export JAVA_HOME=$(/usr/libexec/java_home)
-export PATH="$JAVA_HOME/bin:$PATH"
+# SDKMAN (must be first)
+export SDKMAN_DIR="$HOME/.sdkman"
+[[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
 
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
+# Java (use SDKMAN-selected version)
+export JAVA_HOME="$SDKMAN_DIR/candidates/java/current"
+export PATH="$JAVA_HOME/bin:$PATH"
 
 # PLUGINS
 plugins=(git colorize colored-man-pages zsh-syntax-highlighting command-not-found)
@@ -66,6 +69,8 @@ eval "$(starship init zsh)"
 # source /Users/Artyom_1/.docker/init-zsh.sh || true # Added by Docker Desktop
 
 export PATH="$HOME/.local/python-3.13.3-tk/bin:$PATH"
+
+export PATH="$HOME/.local/bin:$PATH"
 
 export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
