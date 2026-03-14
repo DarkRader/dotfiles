@@ -6,22 +6,12 @@
   // To see all of Zed's default settings without changing yourse
   // custom settings, run `zed: open default settings` from the
   // command palette (cmd-shift-p / ctrl-shift-p)
-  // "agent_servers": {
-  //   "gemini": {
-  //     "type": "registry"
-  //   }
-  // },
   // "edit_predictions": {
   //   "mode": "subtle",
   //   "provider": "zed"
   // },
 
   // Color Theme Settings
-  "agent_servers": {
-    "gemini": {
-      "type": "registry",
-    },
-  },
   "icon_theme": "Warm Charmed Icons",
   "theme": "Aura Soft Dark (Soft Text)",
   "theme_overrides": {
@@ -167,9 +157,8 @@
   "languages": {
     "Python": {
       "formatter": {
-        "external": {
-          "command": "ruff",
-          "arguments": ["format", "-"]
+        "language_server": {
+          "name": "ruff",
         }
       },
       "format_on_save": "on"
@@ -178,13 +167,14 @@
 
   // Terminal Settings
   "terminal": {
-    // "detect_venv": {
-    //   "on": {
-    //     "directories": [".venv", "venv"],
-    //     "activate_script": "default"
-    //   }
-    // },
     "font_family": "JetBrainsMono Nerd Font",
     "font_size": 16,
+  },
+
+  // Agent Settings
+  "agent_servers": {
+    "gemini": {
+      "type": "registry",
+    },
   },
 }
