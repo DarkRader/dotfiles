@@ -46,11 +46,14 @@ plugins=(git colorize colored-man-pages zsh-syntax-highlighting command-not-foun
 source $ZSH/oh-my-zsh.sh
 
 # Greeting
-# echo "🕑 $(date +"%Y.%m.%d %T")"
-# echo
+echo "${GREEN}╔════════════════════════════════════╗${CEND}"
+echo "${GREEN}║ 󰘬 SYSTEM ONLINE                    ║${CEND}"
+echo "${GREEN}║ 󰃭 $(date '+%Y-%m-%d %H:%M:%S')              ║${CEND}"
+echo "${GREEN}║ 󰋼 Greetings: $USER                ║${CEND}"
+echo "${GREEN}╚════════════════════════════════════╝${CEND}"
+echo
 
 [[ -f ~/.zsh/starship.zsh ]] && source ~/.zsh/starship.zsh
-[[ -f ~/.zsh/nvm.zsh ]] && source ~/.zsh/nvm.zsh
 
 # ALIASES
 [[ -f ~/.zsh/aliases.zsh ]] && source ~/.zsh/aliases.zsh
@@ -65,8 +68,6 @@ eval "$(starship init zsh)"
 # ---------------------------------------------------------------------------------------
 # --------------E-N-D---Z-S-H---C-O-N-F-I-G----------------------------------------------
 # ---------------------------------------------------------------------------------------
-
-# source /Users/Artyom_1/.docker/init-zsh.sh || true # Added by Docker Desktop
 
 export PATH="$HOME/.local/python-3.13.3-tk/bin:$PATH"
 
