@@ -60,9 +60,10 @@
     // "default_width": 400,
     "hide_root": true,
     "auto_fold_dirs": false,
+    "auto_reveal_entries": false,
     "starts_open": false,
     "git_status": true,
-    "sticky_scroll": false,
+    "sticky_scroll": true,
     "scrollbar": {
       "show": "never",
     },
@@ -71,13 +72,26 @@
     },
   },
   "outline_panel": {
+    "dock": "left",
     "default_width": 300,
     "indent_guides": {
       "show": "never",
     },
   },
+  "git_panel": {
+    "dock": "left"
+  },
+  "agent": {
+    "dock": "right",
+  },
+  "search": {
+    "button": false
+  },
   "file_finder": {
     "modal_max_width": "small",
+  },
+  "collaboration_panel": {
+    "button": false
   },
 
   // Typography Settings
@@ -102,7 +116,7 @@
   "agent_buffer_font_size": 16,
 
   // Editing Area Settings
-  "vim_mode": true,
+  "vim_mode": false,
   "multi_cursor_modifier": "cmd_or_ctrl",
   "cursor_shape": "bar",
   "cursor_blink": false,
@@ -116,7 +130,7 @@
 
   // Completions and Hints Settings
   "tab_size": 2,
-  "auto_indent": false,
+  "auto_indent": "syntax_aware",
   "auto_indent_on_paste": false,
   "show_completions_on_input": true,
   "show_completion_documentation": true,
