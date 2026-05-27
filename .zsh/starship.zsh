@@ -7,7 +7,7 @@ elif [[ -f $MFILE ]]; then
   _distro="macos"
 
   # on mac os use the systemprofiler to determine the current model
-  _device=$(system_profiler SPHardwareDataType | awk '/Model Name/ {print $3,$4,$5,$6,$7}')
+  _device=$(system_profiler SPHardwareDataType 2>/dev/null | awk '/Model Name/ {print $3,$4,$5,$6,$7}')
 
   case $_device in
     *MacBook*)     DEVICE="";;
