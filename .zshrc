@@ -45,12 +45,6 @@ plugins=(git colorize colored-man-pages zsh-syntax-highlighting command-not-foun
 # Running Oh My Zsh
 source $ZSH/oh-my-zsh.sh
 
-# Greeting
-echo "${GREEN}╔════════════════════════════════════╗${CEND}"
-echo "${GREEN}║ 󰘬 SYSTEM ONLINE                    ║${CEND}"
-echo "${GREEN}║ 󰃭 $(date '+%Y-%m-%d %H:%M:%S')              ║${CEND}"
-echo "${GREEN}║ 󰋼 Greetings: $USER                ║${CEND}"
-echo "${GREEN}╚════════════════════════════════════╝${CEND}"
 echo
 
 [[ -f ~/.zsh/starship.zsh ]] && source ~/.zsh/starship.zsh
