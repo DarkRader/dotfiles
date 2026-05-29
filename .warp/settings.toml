@@ -29,6 +29,7 @@ input_mode = "waterfall"
 is_settings_sync_enabled = true
 
 [notifications]
+toast_duration_secs = 8
 
 [notifications.preferences]
 is_agent_task_completed_enabled = true
@@ -56,3 +57,8 @@ honor_ps1 = true
 [privacy]
 crash_reporting_enabled = true
 telemetry_enabled = true
+
+[warpify]
+
+[warpify.ssh]
+ssh_extension_install_mode = "never_install"

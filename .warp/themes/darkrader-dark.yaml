@@ -4,7 +4,7 @@ background: '#191919'
 details: darker
 foreground: '#f1f1f1'
 background_image:
-  path: ~/.warp/themes/okita-souji.jpeg
+  path: ~/.warp/themes/background/universe.png
   # path: ~/.warp/themes/flat-lay-transparent-leaf-lamina.jpg
   opacity: 15
 terminal_colors:
