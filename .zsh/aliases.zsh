@@ -31,3 +31,7 @@ alias cloudrader="cd ~/Git/CloudRader"
 alias reservium-api="cd ~/Git/CloudRader/reservium-api/"
 alias reservium-ui="cd ~/Git/CloudRader/reservium-ui/"
 alias dotfiles="cd ~/dotfiles"
+
+# Tools
+alias k="kubectl"
+alias tf="terraform"
