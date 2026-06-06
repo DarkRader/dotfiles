@@ -52,6 +52,9 @@ echo
 # ALIASES
 [[ -f ~/.zsh/aliases.zsh ]] && source ~/.zsh/aliases.zsh
 
+# Homebrew Auto-Dump Automation
+[[ -f ~/.zsh/brew.zsh ]] && source ~/.zsh/brew.zsh
+
 # Load Starship
 eval "$(starship init zsh)"
 
