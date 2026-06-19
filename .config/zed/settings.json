@@ -12,6 +12,18 @@
   // },
 
   // Color Theme Settings
+  "context_servers": {
+    "mcp-server-context7": {
+      "enabled": true,
+      "remote": false,
+      "settings": {}
+    },
+    "terraform-context-server": {
+      "enabled": false,
+      "remote": false,
+      "settings": {}
+    }
+  },
   "icon_theme": "Warm Charmed Icons",
   "theme": "Aura Soft Dark (Soft Text)",
   "theme_overrides": {
@@ -188,7 +200,7 @@
   // Agent Settings
   "agent_servers": {
     "gemini": {
-      "type": "registry",
-    },
+      "type": "registry"
+    }
   },
 }
