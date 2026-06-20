@@ -1,4 +1,4 @@
-tap "hashicorp/tap"
+tap "hashicorp/tap", trusted: true
 # Mozilla CA bundle for Python
 brew "certifi"
 # Cryptography and SSL/TLS Toolkit
@@ -29,8 +29,6 @@ brew "leptonica"
 brew "tesseract"
 # Play, record, convert, and stream select audio and video codecs
 brew "ffmpeg"
-# Interact with Google Gemini AI models from the command-line
-brew "gemini-cli"
 # GitHub command-line tool
 brew "gh"
 # Open source programming language to build simple/reliable/efficient software
@@ -61,6 +59,12 @@ brew "wireguard-tools"
 brew "yt-dlp"
 # Fish shell like syntax highlighting for zsh
 brew "zsh-syntax-highlighting"
+# Terraform
+brew "hashicorp/tap/terraform"
+# Vault
+brew "hashicorp/tap/vault"
+# Terminal interface for Antigravity agents
+cask "antigravity-cli"
 # Application uninstaller
 cask "appcleaner"
 # OpenAI's coding agent that runs in your terminal
