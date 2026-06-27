@@ -17,7 +17,7 @@
       "enabled": true,
       "remote": false,
       "settings": {}
-    },
+    },1
     "terraform-context-server": {
       "enabled": false,
       "remote": false,
@@ -199,7 +199,10 @@
 
   // Agent Settings
   "agent_servers": {
-    "gemini": {
+    "codex-acp": {
+      "default_config_options": {
+        "mode": "agent"
+      },
       "type": "registry"
     }
   },
