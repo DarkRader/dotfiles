@@ -16,13 +16,13 @@
     "mcp-server-context7": {
       "enabled": true,
       "remote": false,
-      "settings": {}
-    },1
+      "settings": {},
+    },
     "terraform-context-server": {
       "enabled": false,
       "remote": false,
-      "settings": {}
-    }
+      "settings": {},
+    },
   },
   "icon_theme": "Warm Charmed Icons",
   "theme": "Aura Soft Dark (Soft Text)",
@@ -91,19 +91,19 @@
     },
   },
   "git_panel": {
-    "dock": "left"
+    "dock": "left",
   },
   "agent": {
     "dock": "right",
   },
   "search": {
-    "button": false
+    "button": false,
   },
   "file_finder": {
     "modal_max_width": "small",
   },
   "collaboration_panel": {
-    "button": false
+    "button": false,
   },
 
   // Typography Settings
@@ -185,10 +185,10 @@
       "formatter": {
         "language_server": {
           "name": "ruff",
-        }
+        },
       },
-      "format_on_save": "on"
-    }
+      "format_on_save": "on",
+    },
   },
 
   // Terminal Settings
@@ -201,9 +201,9 @@
   "agent_servers": {
     "codex-acp": {
       "default_config_options": {
-        "mode": "agent"
+        "mode": "agent",
       },
-      "type": "registry"
-    }
+      "type": "registry",
+    },
   },
 }
