@@ -97,6 +97,8 @@ cask "postman"
 cask "postman-agent"
 # Control your tools with a few keystrokes
 cask "raycast"
+# Email client
+cask "readdle-spark"
 # Minimal GUI for AI code agents
 cask "t3-code"
 npm "corepack"
