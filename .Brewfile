@@ -12,6 +12,8 @@ brew "ansible"
 brew "aom"
 # Cloudflare Tunnel client (formerly Argo Tunnel)
 brew "cloudflared"
+# Use Codex from ACP-compatible clients such as Zed!
+brew "codex-acp"
 # Color management engine supporting ICC profiles
 brew "little-cms2"
 # Modern, maintained replacement for ls

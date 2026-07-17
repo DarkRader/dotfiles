@@ -199,6 +199,9 @@
 
   // Agent Settings
   "agent_servers": {
+    "claude-acp": {
+      "type": "registry"
+    },
     "codex-acp": {
       "default_config_options": {
         "mode": "agent",
