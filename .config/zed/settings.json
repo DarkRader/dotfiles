@@ -204,6 +204,8 @@
     },
     "codex-acp": {
       "default_config_options": {
+        "model": "gpt-5.6-luna",
+        "fast-mode": false,
         "mode": "agent",
       },
       "type": "registry",

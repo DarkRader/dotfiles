@@ -8,6 +8,7 @@ alias cls="clear && ls"
 alias ed="$EDITOR"
 alias dot="$HOME/dotfiles"
 alias ls="eza --icons --group-directories-first"
+alias catal="cat ~/dotfiles/.zsh/aliases.zsh"
 
 # Git aliases
 alias ga="git add"
@@ -26,10 +27,11 @@ alias dpa="docker ps -a"
 alias dl="docker ps -l -q"
 alias dx="docker exec -it"
 
-# My Organization
+# Reposities
 alias cloudrader="cd ~/Git/CloudRader"
 alias reservium-api="cd ~/Git/CloudRader/reservium-api/"
 alias reservium-ui="cd ~/Git/CloudRader/reservium-ui/"
+alias darkrader="cd ~/Git/DarkRader"
 alias dotfiles="cd ~/dotfiles"
 
 # Tools
