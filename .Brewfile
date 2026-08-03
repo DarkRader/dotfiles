@@ -14,6 +14,8 @@ brew "aom"
 brew "cloudflared"
 # Use Codex from ACP-compatible clients such as Zed!
 brew "codex-acp"
+# Image format providing lossless and lossy compression for web images
+brew "webp"
 # Color management engine supporting ICC profiles
 brew "little-cms2"
 # Modern, maintained replacement for ls
@@ -22,6 +24,8 @@ brew "eza"
 brew "ffmpeg"
 # GitHub command-line tool
 brew "gh"
+# Distributed revision control system
+brew "git"
 # GNU Transport Layer Security (TLS) Library
 brew "gnutls"
 # Open source programming language to build simple/reliable/efficient software
@@ -36,8 +40,6 @@ brew "jpeg-xl"
 brew "kind"
 # Kubernetes command-line interface
 brew "kubernetes-cli"
-# Image format providing lossless and lossy compression for web images
-brew "webp"
 # Image processing and image analysis library
 brew "leptonica"
 # HTTP/3 library written in C
@@ -47,7 +49,7 @@ brew "libngtcp2"
 # Open-source, cross-platform JavaScript runtime environment
 brew "node"
 # Fast, disk space efficient package manager
-brew "pnpm"
+brew "pnpm", link: false
 # Framework for managing multi-language pre-commit hooks
 brew "pre-commit"
 # Cross-shell prompt for astronauts
@@ -71,9 +73,9 @@ brew "zsh-syntax-highlighting"
 # The AI coding agent built for the terminal.
 brew "anomalyco/tap/opencode", trusted: true
 # Terraform
-brew "hashicorp/tap/terraform"
+brew "hashicorp/tap/terraform", trusted: true
 # Vault
-brew "hashicorp/tap/vault"
+brew "hashicorp/tap/vault", trusted: true
 # Terminal interface for Antigravity agents
 cask "antigravity-cli"
 # Application uninstaller
@@ -101,6 +103,12 @@ cask "postman-agent"
 cask "raycast"
 # Email client
 cask "readdle-spark"
+# Music streaming service
+cask "spotify"
 # Minimal GUI for AI code agents
 cask "t3-code"
+# Rust-based terminal
+cask "warp"
+# Multiplayer code editor
+cask "zed"
 npm "corepack"
