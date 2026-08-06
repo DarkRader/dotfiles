@@ -82,6 +82,8 @@ cask "antigravity-cli"
 cask "appcleaner"
 # Anthropic's official Claude AI desktop app
 cask "claude"
+# Terminal-based AI coding assistant
+cask "claude-code"
 # OpenAI's coding agent that runs in your terminal
 cask "codex"
 cask "font-jetbrains-mono-nerd-font"
@@ -91,6 +93,8 @@ cask "gcloud-cli"
 cask "hiddenbar"
 # Free and open-source media player
 cask "iina"
+# Knowledge base that works on top of a local folder of plain text Markdown files
+cask "obsidian"
 # AI coding agent desktop client
 cask "opencode-desktop"
 # Replacement for Docker Desktop
