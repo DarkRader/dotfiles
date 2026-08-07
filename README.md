@@ -78,3 +78,37 @@ Expected output should show the symlink arrow:
 ```text
 settings.json -> ../dotfiles/.gemini/settings.json
 ```
+
+## Homebrew profiles
+
+Homebrew dependencies are split into three manifests under `brewfiles/`:
+
+* `brewfiles/.brewfile` contains shared dependencies and is the default.
+* `brewfiles/.brewfile.personal` contains personal-only dependencies.
+* `brewfiles/.brewfile.work` contains work-only dependencies.
+
+After `brew install`, `brew uninstall`, `brew tap`, or `brew untap`, the wrapper asks which manifest to update. Press Enter to use the shared manifest. It records only the package named in that command, so unrelated installed packages are not copied into the selected profile.
+
+To avoid the prompt for the current shell:
+
+```bash
+brew profile personal
+brew profile work
+brew profile shared
+brew profile clear
+```
+
+Install the shared dependencies first, then the relevant overlay:
+
+```bash
+brew bundle --file=~/.brewfiles/.brewfile
+brew bundle --file=~/.brewfiles/.brewfile.work
+```
+
+Keep shared dependencies only in `brewfiles/.brewfile`; keep context-specific dependencies in the corresponding overlay.
+
+After adding the directory for the first time, refresh the root Stow package so it is available as `~/.brewfiles/`:
+
+```bash
+stow -Rv .
+```

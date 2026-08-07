@@ -52,7 +52,7 @@ echo
 # ALIASES
 [[ -f ~/.zsh/aliases.zsh ]] && source ~/.zsh/aliases.zsh
 
-# Homebrew Auto-Dump Automation
+# Homebrew profile-aware bundle recording
 [[ -f ~/.zsh/brew.zsh ]] && source ~/.zsh/brew.zsh
 
 # Load Starship
