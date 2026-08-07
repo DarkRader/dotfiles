@@ -24,16 +24,18 @@ _brewfile_choose_profile() {
     return $?
   fi
 
-  if [[ ! -t 0 || ! -t 1 ]]; then
+  # This function is called inside command substitution when recording a
+  # package, so stdout is not a terminal even in an interactive shell.
+  if [[ ! -r /dev/tty || ! -t 2 ]]; then
     _brewfile_path shared
     return
   fi
 
-  print "Select the Brewfile to update:"
-  print "  1) shared (default)"
-  print "  2) personal"
-  print "  3) work"
-  read "reply?Profile [1]: "
+  print -u2 "Select the Brewfile to update:"
+  print -u2 "  1) shared (default)"
+  print -u2 "  2) personal"
+  print -u2 "  3) work"
+  read "reply?Profile [1]: " </dev/tty
   reply="${reply:-1}"
 
   case "$reply" in
