@@ -1,1 +1,3 @@
 # Work-only Homebrew dependencies.
+# Team communication and collaboration software
+cask "slack"

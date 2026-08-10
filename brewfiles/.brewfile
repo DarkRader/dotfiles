@@ -64,10 +64,6 @@ brew "unbound"
 brew "uv"
 # Internet file retriever
 brew "wget"
-# Tools for the WireGuard secure network tunnel
-brew "wireguard-tools"
-# Feature-rich command-line audio/video downloader
-brew "yt-dlp"
 # Fish shell like syntax highlighting for zsh
 brew "zsh-syntax-highlighting"
 # The AI coding agent built for the terminal.
@@ -91,12 +87,8 @@ cask "font-jetbrains-mono-nerd-font"
 cask "gcloud-cli"
 # Utility to hide menu bar items
 cask "hiddenbar"
-# Free and open-source media player
-cask "iina"
 # Knowledge base that works on top of a local folder of plain text Markdown files
 cask "obsidian"
-# AI coding agent desktop client
-cask "opencode-desktop"
 # Replacement for Docker Desktop
 cask "orbstack"
 # Collaboration platform for API development
@@ -109,10 +101,9 @@ cask "raycast"
 cask "readdle-spark"
 # Music streaming service
 cask "spotify"
-# Minimal GUI for AI code agents
-cask "t3-code"
 # Rust-based terminal
 cask "warp"
 # Multiplayer code editor
 cask "zed"
-npm "corepack"
+# Messaging app with a focus on speed and security
+cask "telegram"
