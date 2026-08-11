@@ -1,114 +1,148 @@
 # DarkRader Dotfiles
 
-A centralized repository for managing system configurations and application settings on macOS using **GNU Stow**. 
+This repository is the source of truth for macOS shell, terminal, editor, and
+application configuration. It uses [GNU Stow](https://www.gnu.org/software/stow/)
+to expose the files in this repository through symlinks in `$HOME`.
 
-By using Stow, all configurations are safely kept inside this single Git-tracked directory, while symlinks inside the home directory (`~/`) point directly here.
+## How It Works
 
----
+- Git tracks the real configuration files in this repository.
+- GNU Stow creates symlinks in your home directory that point back here.
+- Edit a tracked file in this repository; the linked application sees the
+  change immediately.
+- Do not commit symlinks from your home directory. The symlinks are generated
+  by Stow and belong outside the repository.
 
-## ⚙️ Core Stow Concepts
+The top-level package is intentionally used for the initial setup. It manages
+directories such as `.config`, `.gemini`, `.warp`, and `.zsh`, plus root-level
+files such as `.zshrc`. `brewfiles/` and `raycast/` remain versioned in Git but
+are intentionally excluded from Stow: Homebrew is run manually and Raycast is
+imported through its application UI. Depending on whether a
+target directory already exists, Stow may create one directory symlink or
+individual file symlinks inside that directory; both point back to the same
+tracked source files.
 
-* **Modifying an existing file:** Do nothing. Because the file in your home directory is already a symlink pointing here, changes you save are instantly applied.
-* **Adding a brand new file:** You must explicitly run/refresh Stow so it creates the new symlink.
+If individual file symlinks are required for a package, use Stow's
+`--no-folding` option, for example `stow -Rv --no-folding .config`. This is
+optional; the default directory folding is safe and keeps the home directory
+tidy.
 
----
+## First Setup On A New Mac
 
-## 🚀 Useful Stow Commands
-
-Always run these commands from the root of the `~/dotfiles` directory.
-
-### Deploying Configs
-Stow links files to the parent directory (`../`) by default. If a folder matches your home folder name directly (like `.config`), use standard stow:
-
-```bash
-# Link or update a package (e.g., .config or .warp)
-stow -v .config
-
-# Restow (re-calculate and fix symlinks for a package)
-stow -Rv .config
-```
-
-#### The Target Flag Case (`-t`)
-For root-level application folders where you want to keep the folder intact in this repo but only symlink the files inside it (like `.gemini`), use the target flag:
-
-```bash
-# Explicitly target a specific subfolder in your home directory
-stow -v -t ~/.gemini .gemini
-
-# Restow a target-based package
-stow -Rv -t ~/.gemini .gemini
-```
-
-### Removing Configs
-If you want to safely remove the symlinks from your home directory without deleting the actual configuration files from this repository:
+Install Homebrew first:
 
 ```bash
-# Remove symlinks for a normal package
-stow -Dv .config
-
-# Remove symlinks for a target-bound package
-stow -Dv -t ~/.gemini .gemini
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 ```
 
----
-
-## 🛠️ Typical Use Cases
-
-### Case A: You added a new tool configuration to `.config/`
-1. Create the new application folder inside `./.config/` (e.g., `.config/new-app/config.toml`).
-2. Refresh the `.config` package link:
-   ```bash
-   stow -Rv .config
-   ```
-
-### Case B: You want to update your `.gemini/settings.json`
-1. Make your changes directly to `./.gemini/settings.json` inside this repository.
-2. Save the file. The changes are immediately live because the home file is a symlink. No commands required!
-
----
-
-## 🔍 Verifying Links
-To verify that your file system is correctly linking back to this repository, check the file attributes:
+Then install Git and Stow and clone the repository:
 
 ```bash
-ls -l ~/.gemini/settings.json
+brew install git stow
+git clone https://github.com/DarkRader/dotfiles ~/dotfiles
+cd ~/dotfiles
 ```
 
-Expected output should show the symlink arrow:
-```text
-settings.json -> ../dotfiles/.gemini/settings.json
-```
-
-## Homebrew profiles
-
-Homebrew dependencies are split into three manifests under `brewfiles/`:
-
-* `brewfiles/.brewfile` contains shared dependencies and is the default.
-* `brewfiles/.brewfile.personal` contains personal-only dependencies.
-* `brewfiles/.brewfile.work` contains work-only dependencies.
-
-After `brew install`, `brew uninstall`, `brew tap`, or `brew untap`, the wrapper asks which manifest to update. Press Enter to use the shared manifest. It records only the package named in that command, so unrelated installed packages are not copied into the selected profile.
-
-To avoid the prompt for the current shell:
+Both `git` and `stow` are also recorded in the shared
+`brewfiles/.brewfile`. The explicit install above bootstraps the tools needed
+to clone and link this repository; after cloning, apply the full shared
+profile with:
 
 ```bash
-brew profile personal
-brew profile work
-brew profile shared
-brew profile clear
+brew bundle --file=~/dotfiles/brewfiles/.brewfile
 ```
 
-Install the shared dependencies first, then the relevant overlay:
+Preview the links before changing your home directory:
 
 ```bash
-brew bundle --file=~/.brewfiles/.brewfile
-brew bundle --file=~/.brewfiles/.brewfile.work
+stow -nRv .
 ```
 
-Keep shared dependencies only in `brewfiles/.brewfile`; keep context-specific dependencies in the corresponding overlay.
-
-After adding the directory for the first time, refresh the root Stow package so it is available as `~/.brewfiles/`:
+If the preview is correct, create the symlinks:
 
 ```bash
 stow -Rv .
 ```
+
+If Stow reports a conflict, inspect the existing file first. Move or remove an
+old, unmanaged configuration only after deciding whether it should be kept;
+Stow will not overwrite it automatically.
+
+After setup, verify a link points into this repository. Depending on Stow's
+directory-folding decision, inspect either the package directory or a file
+inside it:
+
+```bash
+ls -l ~/.zshrc
+readlink ~/.zshrc
+ls -ld ~/.config ~/.config/starship.toml
+readlink ~/.config
+readlink ~/.config/starship.toml
+```
+
+At least the inspected path should resolve into `~/dotfiles`. Start a new
+shell after linking `.zshrc` so the shell loads the managed configuration.
+
+## Updating Existing Configuration
+
+Edit the source file under `~/dotfiles`. No Stow command is needed when the
+symlink already exists:
+
+```bash
+$EDITOR ~/dotfiles/.zshrc
+$EDITOR ~/dotfiles/.config/starship.toml
+```
+
+If a directory or file was added, moved, or renamed, restow the package:
+
+```bash
+cd ~/dotfiles
+stow -Rv .
+```
+
+Use `stow -Dv .` to remove this package's symlinks from `$HOME`. This does not
+delete the source files in the repository.
+
+## Adding A New Managed File
+
+1. Put the file in the matching package in this repository, preserving the
+   path it should have under `$HOME`.
+2. Preview the change with `stow -nRv .`.
+3. Restow with `stow -Rv .`.
+4. Confirm the home-directory path is a symlink to the repository.
+5. Review and commit the source file with Git.
+
+For example, to manage `~/.config/example/settings.toml`:
+
+```bash
+mkdir -p ~/dotfiles/.config/example
+$EDITOR ~/dotfiles/.config/example/settings.toml
+cd ~/dotfiles
+stow -nRv .
+stow -Rv .
+ls -l ~/.config/example/settings.toml
+git add .config/example/settings.toml
+```
+
+If the target already exists as a regular file, back it up or merge its
+contents before running Stow. Never copy a generated home-directory symlink
+back into the repository as a new tracked file.
+
+## Packages And Layout
+
+| Path | Purpose |
+| --- | --- |
+| `.config/` | XDG application configuration |
+| `.gemini/` | Gemini CLI configuration |
+| `.warp/` | Warp terminal settings and themes |
+| `.zsh/` and `.zshrc` | Shell configuration |
+| `brewfiles/` | Homebrew manifests and instructions; applied manually |
+| `raycast/` | Raycast import source; not Stow-managed |
+
+The root `.stowrc` excludes repository metadata and documentation from Stow.
+Files such as `.DS_Store`, editor metadata, credentials, and other machine-
+local artifacts should not be added to the repository. Extend `.gitignore` and
+`.stowrc` when a new non-configuration file should be ignored by Git or Stow.
+
+Homebrew profiles are documented separately in
+[brewfiles/README.md](brewfiles/README.md).
