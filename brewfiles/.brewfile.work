@@ -1,3 +1,7 @@
 # Work-only Homebrew dependencies.
 # Team communication and collaboration software
 cask "slack"
+# Meet, chat, call, and collaborate in just one place
+cask "microsoft-teams"
+# App to write, plan, collaborate, and get organised
+cask "notion"

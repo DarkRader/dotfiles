@@ -107,3 +107,9 @@ cask "warp"
 cask "zed"
 # Messaging app with a focus on speed and security
 cask "telegram"
+# Terminal multiplexer
+brew "tmux"
+# Calendar for professionals and teams
+cask "notion-calendar"
+# To-do & task list manager
+cask "ticktick"
