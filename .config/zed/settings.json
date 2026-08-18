@@ -191,6 +191,22 @@
     },
   },
 
+    // Extension Settings
+  "auto_install_extensions": {
+    "aura-theme": true,
+    "charmed-icons": true,
+    "csv": true,
+    "docker-compose": true,
+    "dockerfile": true,
+    "html": true,
+    "kotlin": true,
+    "log": true,
+    "make": true,
+    "terraform": true,
+    "terraform-context-server": true,
+    "toml": true
+  },
+
   // Terminal Settings
   "terminal": {
     "font_family": "JetBrainsMono Nerd Font",
