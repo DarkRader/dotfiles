@@ -5,3 +5,9 @@ cask "slack"
 cask "microsoft-teams"
 # App to write, plan, collaborate, and get organised
 cask "notion"
+# Microsoft Azure CLI 2.0
+brew "azure-cli"
+# Python package management tool
+brew "poetry"
+# Data loading tool for PostgreSQL
+brew "pgloader"

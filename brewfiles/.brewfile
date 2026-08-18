@@ -113,3 +113,7 @@ brew "tmux"
 cask "notion-calendar"
 # To-do & task list manager
 cask "ticktick"
+# Open-source, cross-platform JavaScript runtime environment
+brew "npm"
+# Open agent skills ecosystem
+brew "skills"
