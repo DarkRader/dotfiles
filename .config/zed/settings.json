@@ -202,6 +202,7 @@
     "kotlin": true,
     "log": true,
     "make": true,
+    "nix": true,
     "terraform": true,
     "terraform-context-server": true,
     "toml": true
