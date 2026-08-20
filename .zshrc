@@ -42,6 +42,12 @@ export PATH="$JAVA_HOME/bin:$PATH"
 # PLUGINS
 plugins=(git colorize colored-man-pages zsh-syntax-highlighting command-not-found)
 
+# The old Intel Homebrew completion path may remain after migrating Homebrew
+# to Nix. Keep it out of fpath unless its brew completion file exists.
+if [[ ! -f /usr/local/share/zsh/site-functions/_brew ]]; then
+  fpath=(${fpath:#/usr/local/share/zsh/site-functions})
+fi
+
 # Running Oh My Zsh
 source $ZSH/oh-my-zsh.sh
 
@@ -51,9 +57,6 @@ echo
 
 # ALIASES
 [[ -f ~/.zsh/aliases.zsh ]] && source ~/.zsh/aliases.zsh
-
-# Homebrew profile-aware bundle recording
-[[ -f ~/.zsh/brew.zsh ]] && source ~/.zsh/brew.zsh
 
 # Load Starship
 eval "$(starship init zsh)"
