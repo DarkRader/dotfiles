@@ -57,6 +57,7 @@ echo
 
 # ALIASES
 [[ -f ~/.zsh/aliases.zsh ]] && source ~/.zsh/aliases.zsh
+[[ -f ~/.zsh/darwin-switch.zsh ]] && source ~/.zsh/darwin-switch.zsh
 
 # Load Starship
 eval "$(starship init zsh)"
