@@ -13,13 +13,12 @@
     enable = true;
 
     onActivation = {
-      autoUpdate = false;
-      upgrade = false;
-      cleanup = "none";
+      autoUpdate = true;
+      upgrade = true;
+      cleanup = "zap";
     };
 
     taps = [
-      "anomalyco/tap"
       "hashicorp/tap"
     ];
 
@@ -38,11 +37,8 @@
       "gh"
       "git"
       "gnutls"
-      "go"
-      "helm"
       "htop"
       "jpeg-xl"
-      "kind"
       "kubernetes-cli"
       "leptonica"
       "libnghttp3"
@@ -57,7 +53,6 @@
       "uv"
       "wget"
       "zsh-syntax-highlighting"
-      "anomalyco/tap/opencode"
       "hashicorp/tap/terraform"
       "hashicorp/tap/vault"
       "tmux"
@@ -69,10 +64,8 @@
       "antigravity-cli"
       "appcleaner"
       "claude"
-      "claude-code"
       "codex"
       "font-jetbrains-mono-nerd-font"
-      "gcloud-cli"
       "hiddenbar"
       "obsidian"
       "orbstack"
