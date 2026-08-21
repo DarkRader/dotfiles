@@ -9,6 +9,34 @@
 
   nix.settings.experimental-features = "nix-command flakes";
 
+  system.defaults = {
+    # NSGlobalDomain = {
+    #   AppleInterfaceStyle = "Dark";
+    #   AppleShowAllExtensions = true;
+    #   KeyRepeat = 2;
+    #   InitialKeyRepeat = 15;
+    #   NSAutomaticCapitalizationEnabled = false;
+    # };
+
+    dock = {
+      autohide = true;
+      # show-recents = false;
+      # orientation = "bottom";
+    };
+
+    # finder = {
+    #   AppleShowAllExtensions = true;
+    #   FXPreferredViewStyle = "clmv";
+    #   ShowPathbar = true;
+    #   ShowStatusBar = true;
+    # };
+
+    # trackpad = {
+    #   Clicking = true;
+    #   TrackpadRightClick = true;
+    # };
+  };
+
   homebrew = {
     enable = true;
 
