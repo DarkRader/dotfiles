@@ -1,6 +1,10 @@
-{ ... }:
+{ pkgs, ... }:
 {
-  # Profile-specific settings can be added here.
+  environment.systemPackages = [
+    pkgs.cloudflared
+    pkgs.codex-acp
+  ];
+
   system.defaults = {
     dock = {
       persistent-apps = [
@@ -22,6 +26,7 @@
   };
 
   homebrew.brews = [
+    "kubernetes-cli"
     "wireguard-tools"
     "yt-dlp"
   ];

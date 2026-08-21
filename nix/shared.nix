@@ -1,7 +1,35 @@
 { pkgs, ... }:
 {
   environment.systemPackages = [
+    # Editor
     pkgs.neovim
+
+    # Core CLI and repository tools
+    pkgs.git
+    pkgs.gh
+    pkgs.stow
+
+    # Shell and terminal
+    pkgs.starship
+    pkgs.eza
+    pkgs.tmux
+    pkgs.zsh-syntax-highlighting
+
+    # Languages and package managers
+    pkgs.python313Packages.pygments
+    pkgs.pnpm
+    pkgs.nodejs
+    pkgs.uv
+
+    # Development tools
+    pkgs.nixd
+    pkgs.nil
+    pkgs.pre-commit
+    pkgs.skills
+
+    # Media and system tools
+    pkgs.ffmpeg
+    pkgs.htop
   ];
 
   system.stateVersion = 6;
@@ -50,44 +78,13 @@
       "hashicorp/tap"
     ];
 
+    # Infrastructure tools
     brews = [
-      "certifi"
-      "openssl@3"
-      "zstd"
-      "ansible"
-      "aom"
-      "cloudflared"
-      "codex-acp"
-      "webp"
-      "little-cms2"
-      "eza"
-      "ffmpeg"
-      "gh"
-      "git"
-      "gnutls"
-      "htop"
-      "jpeg-xl"
-      "kubernetes-cli"
-      "leptonica"
-      "libnghttp3"
-      "libngtcp2"
-      "node"
-      "pnpm"
-      "pre-commit"
-      "starship"
-      "stow"
-      "tesseract"
-      "unbound"
-      "uv"
-      "wget"
-      "zsh-syntax-highlighting"
       "hashicorp/tap/terraform"
       "hashicorp/tap/vault"
-      "tmux"
-      "npm"
-      "skills"
     ];
 
+    # Desktop applications
     casks = [
       "antigravity-cli"
       "appcleaner"

@@ -8,7 +8,7 @@
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
   };
 
-  outputs = inputs@{ self, nix-darwin, nix-homebrew, ... }:
+  outputs = { self, nix-darwin, nix-homebrew, ... }:
   let
     commonModules = user: [
       ./shared.nix
