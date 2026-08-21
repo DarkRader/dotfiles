@@ -30,15 +30,6 @@ ZSH_DISABLE_COMPFIX="true"
 POWERLEVEL9K_MODE="nerdfont-complete"
 export ZSH="$HOME/.oh-my-zsh"
 
-# Java
-# SDKMAN (must be first)
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$SDKMAN_DIR/bin/sdkman-init.sh" ]] && source "$SDKMAN_DIR/bin/sdkman-init.sh"
-
-# Java (use SDKMAN-selected version)
-export JAVA_HOME="$SDKMAN_DIR/candidates/java/current"
-export PATH="$JAVA_HOME/bin:$PATH"
-
 # PLUGINS
 plugins=(git colorize colored-man-pages zsh-syntax-highlighting command-not-found)
 
@@ -73,14 +64,3 @@ eval "$(starship init zsh)"
 export PATH="$HOME/.local/python-3.13.3-tk/bin:$PATH"
 
 export PATH="$HOME/.local/bin:$PATH"
-
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
-
-# Vite+ bin (https://viteplus.dev)
-. "$HOME/.vite-plus/env"
