@@ -39,31 +39,22 @@
   nix.settings.experimental-features = "nix-command flakes";
 
   system.defaults = {
-    # NSGlobalDomain = {
-    #   AppleInterfaceStyle = "Dark";
-    #   AppleShowAllExtensions = true;
-    #   KeyRepeat = 2;
-    #   InitialKeyRepeat = 15;
-    #   NSAutomaticCapitalizationEnabled = false;
-    # };
-
-    dock = {
-      autohide = true;
-      # show-recents = false;
-      # orientation = "bottom";
+    NSGlobalDomain = {
+      AppleInterfaceStyle = "Dark";
     };
 
-    # finder = {
-    #   AppleShowAllExtensions = true;
-    #   FXPreferredViewStyle = "clmv";
-    #   ShowPathbar = true;
-    #   ShowStatusBar = true;
-    # };
+    dock = {
+      magnification = true;
+      mineffect = "scale";
+      minimize-to-application = true;
+      autohide = true;
+      show-recents = false;
+    };
 
-    # trackpad = {
-    #   Clicking = true;
-    #   TrackpadRightClick = true;
-    # };
+    trackpad = {
+      Clicking = true;
+      TrackpadRightClick = true;
+    };
   };
 
   homebrew = {
