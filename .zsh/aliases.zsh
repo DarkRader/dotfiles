@@ -9,6 +9,8 @@ alias ed="$EDITOR"
 alias dot="$HOME/dotfiles"
 alias ls="eza --icons --group-directories-first"
 alias catal="cat ~/dotfiles/.zsh/aliases.zsh"
+alias darwin-personal="darwin-switch personal"
+alias darwin-work="darwin-switch work"
 
 # Git aliases
 alias ga="git add"

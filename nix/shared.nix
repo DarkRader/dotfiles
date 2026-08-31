@@ -65,6 +65,19 @@
       Clicking = true;
       TrackpadRightClick = true;
     };
+
+    CustomUserPreferences = {
+      "com.apple.assistant.support" = {
+        "Assistant Enabled" = false;
+      };
+      "com.apple.assistant.backedup" = {
+        "Assistant Enabled" = false;
+      };
+      "com.apple.Siri" = {
+        "StatusMenuVisible" = false;
+        "UserHasDeclinedEnable" = true;
+      };
+    };
   };
 
   homebrew = {

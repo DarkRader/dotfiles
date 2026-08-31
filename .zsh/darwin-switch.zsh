@@ -22,6 +22,3 @@ darwin-switch() {
   sudo -H darwin-rebuild switch \
     --flake "$HOME/dotfiles/nix#macbook-$profile"
 }
-
-alias darwin-personal="darwin-switch personal"
-alias darwin-work="darwin-switch work"
