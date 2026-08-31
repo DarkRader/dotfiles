@@ -15,11 +15,12 @@ home directory; generated home-directory links must not be committed here.
 - `.zshrc`: root-level shell entrypoint.
 - `brewfiles/`: shared, personal, and work Homebrew manifests; applied
   manually, not Stow-managed.
+- `nix/`: nix-darwin and Nix flake configuration; not Stow-managed.
 - `raycast/`: Raycast import source; not Stow-managed.
 - `.stowrc`: repository-wide Stow ignore rules.
 - `.gitignore`: files excluded from Git.
 
-`brewfiles/` and `raycast/` are intentionally ignored by `.stowrc` even though
+`brewfiles/`, `nix/`, and `raycast/` are intentionally ignored by `.stowrc` even though
 their source files remain tracked by Git.
 
 ## Setup And Verification

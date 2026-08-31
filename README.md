@@ -15,11 +15,11 @@ to expose the files in this repository through symlinks in `$HOME`.
 
 The top-level package is intentionally used for the initial setup. It manages
 directories such as `.config`, `.gemini`, `.warp`, and `.zsh`, plus root-level
-files such as `.zshrc`. `brewfiles/` and `raycast/` remain versioned in Git but
-are intentionally excluded from Stow: Homebrew is run manually and Raycast is
-imported through its application UI. Depending on whether a
-target directory already exists, Stow may create one directory symlink or
-individual file symlinks inside that directory; both point back to the same
+files such as `.zshrc`. `brewfiles/`, `nix/`, and `raycast/` remain versioned in
+Git but are intentionally excluded from Stow: Nix and Homebrew are run
+separately and Raycast is imported through its application UI. Depending on
+whether a target directory already exists, Stow may create one directory symlink
+or individual file symlinks inside that directory; both point back to the same
 tracked source files.
 
 If individual file symlinks are required for a package, use Stow's
@@ -29,40 +29,29 @@ tidy.
 
 ## First Setup On A New Mac
 
-Install Homebrew first:
+To bootstrap a new Mac with Nix, [nix-darwin](https://github.com/nix-darwin/nix-darwin), and [nix-homebrew](https://github.com/zhaofengli/nix-homebrew):
 
 ```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
+# 1. Install Apple Command Line Tools (provides git and core build tools)
+xcode-select --install
 
-Then install Git and Stow and clone the repository:
+# 2. Install Nix (Determinate Systems installer)
+curl --proto '=https' --tlsv1.2 -sSf -L https://install.determinate.systems/nix | sh -s -- install
 
-```bash
-brew install git stow
+# 3. Clone the repository
 git clone https://github.com/DarkRader/dotfiles ~/dotfiles
 cd ~/dotfiles
-```
 
-Both `git` and `stow` are also recorded in the shared
-`brewfiles/.brewfile`. The explicit install above bootstraps the tools needed
-to clone and link this repository; after cloning, apply the full shared
-profile with:
+# 4. Bootstrap nix-darwin (choose personal or work profile)
+nix run nix-darwin/master#darwin-rebuild -- switch --flake ~/dotfiles/nix#macbook-personal
+# or for work:
+# nix run nix-darwin/master#darwin-rebuild -- switch --flake ~/dotfiles/nix#macbook-work
 
-```bash
-brew bundle --file=~/dotfiles/brewfiles/.brewfile
-```
-
-Preview the links before changing your home directory:
-
-```bash
-stow -nRv .
-```
-
-If the preview is correct, create the symlinks:
-
-```bash
+# 5. Link dotfiles with Stow
 stow -Rv .
 ```
+
+See [nix/README.md](nix/README.md) for full documentation, profile differences, and daily commands.
 
 If Stow reports a conflict, inspect the existing file first. Move or remove an
 old, unmanaged configuration only after deciding whether it should be kept;
@@ -137,6 +126,7 @@ back into the repository as a new tracked file.
 | `.warp/` | Warp terminal settings and themes |
 | `.zsh/` and `.zshrc` | Shell configuration |
 | `brewfiles/` | Homebrew manifests and instructions; applied manually |
+| `nix/` | nix-darwin and Nix flake system configuration; not Stow-managed |
 | `raycast/` | Raycast import source; not Stow-managed |
 
 The root `.stowrc` excludes repository metadata and documentation from Stow.
@@ -144,5 +134,5 @@ Files such as `.DS_Store`, editor metadata, credentials, and other machine-
 local artifacts should not be added to the repository. Extend `.gitignore` and
 `.stowrc` when a new non-configuration file should be ignored by Git or Stow.
 
-Homebrew profiles are documented separately in
-[brewfiles/README.md](brewfiles/README.md).
+Nix and Homebrew configurations are documented separately in
+[nix/README.md](nix/README.md) and [brewfiles/README.md](brewfiles/README.md).
