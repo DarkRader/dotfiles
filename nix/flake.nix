@@ -44,7 +44,7 @@
     darwinConfigurations."macbook-work" =
       mkMacbook {
         profile = ./work;
-        user = "artemk";
+        user = "artem";
       };
 
     darwinPackages =
