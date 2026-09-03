@@ -26,11 +26,15 @@
     "azure-cli"
     "poetry"
     "pgloader"
+    "pulumi"
   ];
 
   homebrew.casks = [
     "slack"
     "microsoft-teams"
     "notion"
+    "claude"
+    "gcloud-cli"
+    "bitwarden"
   ];
 }
