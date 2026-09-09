@@ -266,7 +266,22 @@ def fetch_icon_or_create(query, fallback_letter=False):
         f"  4. Provide a local vector file with --svg <path>."
     )
 
+def is_color_dark(hex_color):
+    """Returns True if the hex color has a dark perceived luminance."""
+    hex_color = hex_color.lstrip("#")
+    if len(hex_color) == 3:
+        hex_color = "".join(c * 2 for c in hex_color)
+    if len(hex_color) != 6:
+        return False
+    try:
+        r, g, b = int(hex_color[0:2], 16), int(hex_color[2:4], 16), int(hex_color[4:6], 16)
+        luminance = 0.299 * r + 0.587 * g + 0.114 * b
+        return luminance < 100
+    except ValueError:
+        return False
+
 def compute_styling(args):
+    # Detect if a dark theme was requested or implied
     preset = THEME_PRESETS[args.theme]
     bg_top = preset["bg_top"]
     bg_bottom = preset["bg_bottom"]
@@ -289,8 +304,15 @@ def compute_styling(args):
 
     if args.border_color:
         border = args.border_color
-    elif args.bg and bg_top == bg_bottom:
-        border = bg_top
+    else:
+        # Determine border based on background luminance
+        if is_color_dark(bg_top) or is_color_dark(bg_bottom):
+            if bg_top.lower() in ("#161618", "#000000", "#0d0d0e") or args.theme == "black":
+                border = "#28282C"
+            else:
+                border = "#3A3B40"
+        elif args.bg and bg_top == bg_bottom:
+            border = bg_top
 
     if args.color:
         raw_color = args.color.strip()
@@ -320,10 +342,6 @@ def build_svg(path_d, viewbox, bg_top, bg_bottom, border, symbol_color, scale, f
 
     svg = f"""<svg width="{CANVAS_SIZE}" height="{CANVAS_SIZE}" viewBox="0 0 {CANVAS_SIZE} {CANVAS_SIZE}" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <filter id="squircle-shadow" x="-10%" y="-10%" width="130%" height="130%">
-      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#000000" flood-opacity="0.22"/>
-      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.12"/>
-    </filter>
     <filter id="symbol-shadow" x="-50%" y="-50%" width="200%" height="200%">
       <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.18"/>
       <feDropShadow dx="0" dy="1.5" stdDeviation="2" flood-color="#000000" flood-opacity="0.12"/>
@@ -335,7 +353,7 @@ def build_svg(path_d, viewbox, bg_top, bg_bottom, border, symbol_color, scale, f
   </defs>
 
   <!-- Base Squircle -->
-  <rect x="{TILE_X}" y="{TILE_Y}" width="{TILE_SIZE}" height="{TILE_SIZE}" rx="{CORNER_RADIUS}" fill="url(#bg-grad)" filter="url(#squircle-shadow)" stroke="{border}" stroke-width="1.5"/>
+  <rect x="{TILE_X}" y="{TILE_Y}" width="{TILE_SIZE}" height="{TILE_SIZE}" rx="{CORNER_RADIUS}" fill="url(#bg-grad)" stroke="{border}" stroke-width="1.5"/>
 
   <!-- Centered Symbol -->
   <g transform="translate(512, 504) scale({calc_scale}) translate({-center_x}, {-center_y})"{filter_attr}>
@@ -351,10 +369,6 @@ def build_letter_svg(letter, bg_top, bg_bottom, border, symbol_color, scale, sha
 
     svg = f"""<svg width="{CANVAS_SIZE}" height="{CANVAS_SIZE}" viewBox="0 0 {CANVAS_SIZE} {CANVAS_SIZE}" xmlns="http://www.w3.org/2000/svg">
   <defs>
-    <filter id="squircle-shadow" x="-10%" y="-10%" width="130%" height="130%">
-      <feDropShadow dx="0" dy="16" stdDeviation="18" flood-color="#000000" flood-opacity="0.22"/>
-      <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.12"/>
-    </filter>
     <filter id="symbol-shadow" x="-50%" y="-50%" width="200%" height="200%">
       <feDropShadow dx="0" dy="4" stdDeviation="6" flood-color="#000000" flood-opacity="0.18"/>
       <feDropShadow dx="0" dy="1.5" stdDeviation="2" flood-color="#000000" flood-opacity="0.12"/>
@@ -366,14 +380,14 @@ def build_letter_svg(letter, bg_top, bg_bottom, border, symbol_color, scale, sha
   </defs>
 
   <!-- Base Squircle -->
-  <rect x="{TILE_X}" y="{TILE_Y}" width="{TILE_SIZE}" height="{TILE_SIZE}" rx="{CORNER_RADIUS}" fill="url(#bg-grad)" filter="url(#squircle-shadow)" stroke="{border}" stroke-width="1.5"/>
+  <rect x="{TILE_X}" y="{TILE_Y}" width="{TILE_SIZE}" height="{TILE_SIZE}" rx="{CORNER_RADIUS}" fill="url(#bg-grad)" stroke="{border}" stroke-width="1.5"/>
 
   <!-- Centered Lettermark -->
   <text x="512" y="{y_pos}" font-family="-apple-system, 'SF Pro Display', system-ui, sans-serif" font-size="{font_size}" font-weight="800" text-anchor="middle" fill="{symbol_color}"{filter_attr}>{letter}</text>
 </svg>"""
     return svg
 
-def render_and_mask(svg_path, temp_dir, mask_ref_path):
+def render_and_mask(svg_path, temp_dir, mask_ref_path, shadow=True, is_dark=False):
     subprocess.run(["qlmanage", "-t", "-s", "1024", "-o", temp_dir, svg_path], check=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
     rendered_png = os.path.join(temp_dir, f"{os.path.basename(svg_path)}.png")
     masked_png = os.path.join(temp_dir, "masked.png")
@@ -385,39 +399,59 @@ def render_and_mask(svg_path, temp_dir, mask_ref_path):
 let srcURL = URL(fileURLWithPath: CommandLine.arguments[1])
 let maskURL = URL(fileURLWithPath: CommandLine.arguments[2])
 let outURL = URL(fileURLWithPath: CommandLine.arguments[3])
+let hasShadow = (CommandLine.arguments.count > 4 && CommandLine.arguments[4] == "1")
 
 guard let rawImg = NSImage(contentsOf: srcURL) else { fatalError("Raw image load failed") }
-var rect = CGRect(x: 0, y: 0, width: 1024, height: 1024)
-guard let rawCG = rawImg.cgImage(forProposedRect: &rect, context: nil, hints: nil) else { fatalError("cgImage failed") }
 
-let finalImg = NSImage(size: NSSize(width: 1024, height: 1024))
-finalImg.lockFocus()
+let rep = NSBitmapImageRep(
+    bitmapDataPlanes: nil,
+    pixelsWide: 1024,
+    pixelsHigh: 1024,
+    bitsPerSample: 8,
+    samplesPerPixel: 4,
+    hasAlpha: true,
+    isPlanar: false,
+    colorSpaceName: NSColorSpaceName.deviceRGB,
+    bytesPerRow: 0,
+    bitsPerPixel: 0
+)!
 
-guard let ctx = NSGraphicsContext.current?.cgContext else { fatalError("No graphics context") }
+let gCtx = NSGraphicsContext(bitmapImageRep: rep)!
+NSGraphicsContext.saveGraphicsState()
+NSGraphicsContext.current = gCtx
+let ctx = gCtx.cgContext
+ctx.clear(CGRect(x: 0, y: 0, width: 1024, height: 1024))
 
-ctx.draw(rawCG, in: rect)
+// In standard Cocoa coordinates (origin at bottom-left):
+// The squircle top margin in SVG is 88px, height is 832px.
+// Thus in Cocoa coordinates: y = 1024 - 88 - 832 = 104.
+let squircleRect = CGRect(x: 96, y: 104, width: 832, height: 832)
 
-if FileManager.default.fileExists(atPath: maskURL.path),
-   let maskImg = NSImage(contentsOf: maskURL),
-   let maskCG = maskImg.cgImage(forProposedRect: &rect, context: nil, hints: nil) {
-    ctx.setBlendMode(.destinationIn)
-    ctx.draw(maskCG, in: rect)
-} else {
-    let clipPath = NSBezierPath(roundedRect: CGRect(x: 96, y: 88, width: 832, height: 832), xRadius: 185, yRadius: 185)
-    ctx.setBlendMode(.destinationIn)
-    clipPath.fill()
+if hasShadow {
+    ctx.saveGState()
+    ctx.setShadow(offset: CGSize(width: 0, height: -16), blur: 18, color: CGColor(red: 0, green: 0, blue: 0, alpha: 0.24))
+    let shadowPath = CGPath(roundedRect: squircleRect, cornerWidth: 185, cornerHeight: 185, transform: nil)
+    ctx.addPath(shadowPath)
+    ctx.fillPath()
+    ctx.restoreGState()
 }
 
-finalImg.unlockFocus()
+// Clip strictly to squircle to eliminate any QuickLook white background
+ctx.saveGState()
+let clipPath = CGPath(roundedRect: squircleRect, cornerWidth: 185, cornerHeight: 185, transform: nil)
+ctx.addPath(clipPath)
+ctx.clip()
 
-var r = CGRect(origin: .zero, size: NSSize(width: 1024, height: 1024))
-if let finalCG = finalImg.cgImage(forProposedRect: &r, context: nil, hints: nil) {
-    let rep = NSBitmapImageRep(cgImage: finalCG)
-    let data = rep.representation(using: .png, properties: [:])!
-    try! data.write(to: outURL)
-}
+rawImg.draw(in: NSRect(x: 0, y: 0, width: 1024, height: 1024))
+ctx.restoreGState()
+
+NSGraphicsContext.restoreGraphicsState()
+
+let data = rep.representation(using: NSBitmapImageRep.FileType.png, properties: [:])!
+try! data.write(to: outURL)
 """)
-    subprocess.run(["swift", swift_script, rendered_png, mask_ref_path, masked_png], check=True)
+    shadow_arg = "1" if shadow else "0"
+    subprocess.run(["swift", swift_script, rendered_png, mask_ref_path, masked_png, shadow_arg], check=True)
     return masked_png
 
 def compile_icns(masked_png, out_icns, temp_dir):
@@ -551,7 +585,8 @@ def main():
         if not os.path.exists(ref_mask):
             ref_mask = "/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/GenericApplicationIcon.icns"
 
-        masked_png = render_and_mask(svg_file, temp_dir, ref_mask)
+        is_dark_bg = is_color_dark(bg_top) or is_color_dark(bg_bottom)
+        masked_png = render_and_mask(svg_file, temp_dir, ref_mask, shadow=args.shadow, is_dark=is_dark_bg)
 
         # Optional preview save
         if preview_path:
