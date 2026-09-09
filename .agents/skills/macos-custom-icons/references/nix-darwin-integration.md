@@ -23,22 +23,42 @@ This document describes how custom application icons are declared and automatica
    ];
    ```
 
-3. **Declarative Icon Mapping (`nix/shared.nix` or `nix/personal/default.nix`)**:
-   Icons are placed in `nix/icons/light/*.icns` and linked to their target applications:
+3. **Declarative Icon Mapping & Theme Selection (`nix/shared.nix` and host profiles)**:
+   Icons are organized into subfolders (`nix/icons/light/`, `nix/icons/dark/`).
+   A custom `theme.icons` option defaults to `"light"`, and a `getIcon` helper dynamically resolves `./icons/${theme}/<name>.icns` with automatic fallback:
    ```nix
+   # In nix/shared.nix:
+   options.theme.icons = lib.mkOption {
+     type = lib.types.str;
+     default = "light";
+     description = "Icon theme subfolder under nix/icons ('light', 'dark', etc.)";
+   };
+
    environment.customIcons = {
      enable = true;
      icons = [
        {
-         path = "/Applications/Spark Desktop.app";
-         icon = ./icons/light/spark.icns;
-       }
-       {
-         path = "/Applications/TickTick.app";
-         icon = ./icons/light/ticktick.icns;
+         path = "/Applications/Spotify.app";
+         icon = getIcon "spotify";
        }
      ];
    };
+   ```
+
+   In host profiles (e.g. `nix/personal/default.nix`):
+   ```nix
+   { getIcon, ... }:
+   {
+     # Override theme for this machine (defaults to "light" if omitted)
+     theme.icons = "dark";
+
+     environment.customIcons.icons = [
+       {
+         path = "/Applications/Discord.app";
+         icon = getIcon "discord";
+       }
+     ];
+   }
    ```
 
 ## How It Executes During Activation
