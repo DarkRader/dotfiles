@@ -1,8 +1,21 @@
-{ pkgs, ... }:
+{ pkgs, getIcon, ... }:
 {
+  theme.icons = "light";
+
   environment.systemPackages = [
     pkgs.cloudflared
     pkgs.codex-acp
+  ];
+
+  environment.customIcons.icons = [
+    {
+      path = "/Applications/Discord.app";
+      icon = getIcon "discord";
+    }
+    {
+      path = "/Applications/Gemini.app";
+      icon = getIcon "gemini";
+    }
   ];
 
   system.defaults = {
@@ -11,16 +24,14 @@
         "/Applications/Safari.app"
         "/Applications/Spark Desktop.app"
         "/Applications/Obsidian.app"
-        "/Applications/Notion.app"
         "/Applications/Notion Calendar.app"
         "/Applications/TickTick.app"
-        "/Applications/ChatGPT.app"
+        "/Applications/Gemini.app"
         "/Applications/Discord.app"
         "/Applications/Spotify.app"
         "/Applications/Telegram.app"
         "/Applications/Zed.app"
         "/Applications/Warp.app"
-        "/System/Applications/App Store.app"
       ];
     };
   };

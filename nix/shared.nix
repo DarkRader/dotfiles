@@ -1,6 +1,26 @@
-{ pkgs, ... }:
+{ config, lib, pkgs, ... }:
+let
+  theme = config.theme.icons;
+  getIcon = name:
+    let
+      target = ./icons + "/${theme}/${name}.icns";
+      fallback = ./icons/light + "/${name}.icns";
+    in
+      if builtins.pathExists target then target else fallback;
+in
 {
-  environment.systemPackages = [
+  options = {
+    theme.icons = lib.mkOption {
+      type = lib.types.str;
+      default = "light";
+      description = "Icon theme subfolder under nix/icons ('light', 'dark', etc.)";
+    };
+  };
+
+  config = {
+    _module.args.getIcon = getIcon;
+
+    environment.systemPackages = [
     # Editor
     pkgs.neovim
 
@@ -37,6 +57,44 @@
   nixpkgs.hostPlatform = "aarch64-darwin";
 
   nix.settings.experimental-features = "nix-command flakes";
+
+  environment.customIcons = {
+    enable = true;
+    icons = [
+      {
+        path = "/Applications/Spark Desktop.app";
+        icon = getIcon "spark";
+      }
+      {
+        path = "/Applications/Obsidian.app";
+        icon = getIcon "obsidian";
+      }
+      {
+        path = "/Applications/Spotify.app";
+        icon = getIcon "spotify";
+      }
+      {
+        path = "/Applications/Telegram.app";
+        icon = getIcon "telegram";
+      }
+      {
+        path = "/Applications/Zed.app";
+        icon = getIcon "zed";
+      }
+      {
+        path = "/Applications/Warp.app";
+        icon = getIcon "warp";
+      }
+      {
+        path = "/Applications/TickTick.app";
+        icon = getIcon "ticktick";
+      }
+      {
+        path = "/Applications/Notion Calendar.app";
+        icon = getIcon "notion-calendar";
+      }
+    ];
+  };
 
   system.defaults = {
     NSGlobalDomain = {
@@ -121,4 +179,5 @@
       "ticktick"
     ];
   };
+};
 }

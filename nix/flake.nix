@@ -6,13 +6,15 @@
     nix-darwin.url = "github:nix-darwin/nix-darwin/master";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
+    darwin-custom-icons.url = "github:ryanccn/nix-darwin-custom-icons";
   };
 
-  outputs = { self, nix-darwin, nix-homebrew, ... }:
+  outputs = { self, nix-darwin, nix-homebrew, darwin-custom-icons, ... }:
   let
     commonModules = user: [
       ./shared.nix
       nix-homebrew.darwinModules.nix-homebrew
+      darwin-custom-icons.darwinModules.default
       {
         system.configurationRevision = self.rev or self.dirtyRev or null;
         system.primaryUser = user;
