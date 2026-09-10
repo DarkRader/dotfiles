@@ -94,6 +94,13 @@ nix-collect-garbage -d
 ## Directory Structure
 
 - `flake.nix`: Flake entrypoint configuring inputs and mapping profiles (`macbook-personal`, `macbook-work`) to primary users.
-- `shared.nix`: Common packages (Neovim, Git, Starship, tmux, Node, uv, etc.), macOS system defaults (Dark mode, Dock, Finder, Trackpad), and shared Homebrew formulae/casks.
+- `shared.nix`: Top-level shared configuration aggregating modular components.
+- `modules/`:
+  - `theme.nix`: Visual theming (icon theme, wallpaper management, and activation).
+  - `wrappers.nix`: System application wrappers (`~/Applications`) for protected macOS apps.
+  - `icons.nix`: Custom application icon mappings.
+  - `defaults.nix`: macOS system preferences (Dock, Finder, Trackpad, Dark mode, Siri).
+  - `homebrew.nix`: Homebrew formulae and desktop application casks.
+  - `packages.nix`: Common CLI and development packages.
 - `personal/default.nix`: Personal overlay with personal packages, Dock layout, and casks (e.g., IINA).
 - `work/default.nix`: Work overlay with work-specific packages and casks (e.g., Slack, Microsoft Teams, Azure CLI, Poetry).
