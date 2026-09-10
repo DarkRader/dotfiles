@@ -1,6 +1,10 @@
 { pkgs, getIcon, userApp, ... }:
 {
-  theme.icons = "light";
+  theme = {
+    icons = "light";
+    wallpaper = ../wallpapers/silver-dark.jpg;
+    # wallpaper = ../wallpapers/city.jpg;
+  };
 
   environment.systemPackages = [
     pkgs.cloudflared
