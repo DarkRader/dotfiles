@@ -11,13 +11,18 @@
 
   outputs = { self, nix-darwin, nix-homebrew, darwin-custom-icons, ... }:
   let
-    commonModules = user: [
+    commonModules = { user, home ? "/Users/${user}" }: [
       ./shared.nix
       nix-homebrew.darwinModules.nix-homebrew
       darwin-custom-icons.darwinModules.default
       {
         system.configurationRevision = self.rev or self.dirtyRev or null;
         system.primaryUser = user;
+
+        _module.args = {
+          inherit user;
+          userHome = home;
+        };
 
         nix-homebrew = {
           enable = true;
@@ -32,8 +37,8 @@
       }
     ];
 
-    mkMacbook = { profile, user }: nix-darwin.lib.darwinSystem {
-      modules = commonModules user ++ [ profile ];
+    mkMacbook = { profile, user, home ? "/Users/${user}" }: nix-darwin.lib.darwinSystem {
+      modules = commonModules { inherit user home; } ++ [ profile ];
     };
   in
   {
@@ -41,12 +46,14 @@
       mkMacbook {
         profile = ./personal;
         user = "Artyom";
+        home = "/Users/Artyom_1";
       };
 
     darwinConfigurations."macbook-work" =
       mkMacbook {
         profile = ./work;
         user = "artem";
+        home = "/Users/artem";
       };
 
     darwinPackages =

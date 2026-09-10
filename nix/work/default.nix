@@ -1,9 +1,9 @@
-{ ... }:
+{ userApp, ... }:
 {
   system.defaults = {
     dock = {
       persistent-apps = [
-        "/Applications/Safari.app"
+        (userApp "Safari")
         "/Applications/Spark Desktop.app"
         "/Applications/Obsidian.app"
         "/Applications/Notion.app"
