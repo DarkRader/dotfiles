@@ -22,9 +22,7 @@ This skill provides procedures, automation scripts, and templates for designing,
 
 ## Directory Structure
 
-* [`scripts/icon_tool.py`](./scripts/icon_tool.py): Comprehensive Python CLI tool to generate, style, and apply icons with custom background colors/gradients, icon colors, scaling, and auto-fetching from Simple Icons.
-* [`scripts/generate-icon.sh`](./scripts/generate-icon.sh): Shell wrapper for icon generation.
-* [`scripts/apply-icon.sh`](./scripts/apply-icon.sh): Script to safely apply an `.icns` file to any `.app` bundle via Cocoa `NSWorkspace`.
+* [`scripts/icon_tool.py`](./scripts/icon_tool.py): Comprehensive Python CLI tool to generate, style, and apply icons with custom background colors/gradients, icon colors, scaling, auto-fetching from Simple Icons, and direct `.icns` application.
 * [`resources/base-squircle.svg`](./resources/base-squircle.svg): Base SVG template of the Apple squircle tile.
 * [`references/nix-darwin-integration.md`](./references/nix-darwin-integration.md): Guide for `nix-darwin-custom-icons` integration in flakes.
 * [`references/troubleshooting.md`](./references/troubleshooting.md): Solutions for white dock borders, permission errors, and dock cache refresh.
@@ -47,6 +45,7 @@ Run directly from your terminal:
 | `--all-themes` | Generate icon across all registered themes in `themes.json` | `false` | `--query linear --all-themes` |
 | `--sync-themes` | Ensure all themes have the complete set of icons | `false` | `--sync-themes` |
 | `-q, --query` | Search term or link from Simple Icons / CDN | — | `--query slack` or `--query "https://simpleicons.org/?q=warp"` |
+| `--icns` | Path to an existing `.icns` file to apply or preview | — | `--icns nix/icons/light/slack.icns --apply "/Applications/Slack.app"` |
 | `-a, --apply` | Target `.app` to immediately apply icon to & restart Dock | — | `--apply "/Applications/Slack.app"` |
 | `-b, --bg` | Background color/gradient (`white`, `dark`, `slate`, `nord`, or hex) | `white` | `--bg white` or `--bg "#FFFFFF,#EBECEF"` |
 | `-c, --color` | Symbol color (`black`, `white`, `blue`, or hex) | `black` | `--color black` or `--color "#202022"` |
@@ -152,12 +151,12 @@ darwin-rebuild switch --flake ~/dotfiles/nix#macbook-personal
 
 ### 3. Immediately Applying to Running System
 
-To apply the icon without waiting for a full system rebuild:
+To apply an existing icon without waiting for a full system rebuild:
 
 ```bash
-.agents/skills/macos-custom-icons/scripts/apply-icon.sh \
-  "/Applications/<App>.app" \
-  "$HOME/dotfiles/nix/icons/light/<app-name>.icns"
+.agents/skills/macos-custom-icons/scripts/icon_tool.py \
+  --icns "$HOME/dotfiles/nix/icons/light/<app-name>.icns" \
+  --apply "/Applications/<App>.app"
 ```
 
 *Note: If the application in `/Applications` was installed with root privileges, prefix with `sudo`.*

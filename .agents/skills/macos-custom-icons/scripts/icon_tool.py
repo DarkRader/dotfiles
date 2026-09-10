@@ -156,6 +156,10 @@ def parse_args():
         help="Generate an Apple-style typography lettermark monogram (e.g. 'S', 'G', 'AI')"
     )
     source_group.add_argument(
+        "--icns",
+        help="Path to an existing .icns file (typically used with --apply to apply an existing icon)"
+    )
+    source_group.add_argument(
         "--create-theme",
         metavar="THEME_NAME",
         help="Batch generate all existing icons into a new theme folder under nix/icons/<THEME_NAME>"
@@ -645,7 +649,14 @@ def apply_icon_to_app(app_path, icns_path, restart_dock=True):
     icns_path = os.path.abspath(os.path.expanduser(icns_path))
 
     if not os.path.exists(app_path):
-        sys.exit(f"Error: Target app '{app_path}' does not exist.")
+        candidate = f"/Applications/{app_path}.app" if not app_path.endswith(".app") else f"/Applications/{app_path}"
+        if os.path.exists(candidate):
+            app_path = candidate
+        else:
+            sys.exit(f"Error: Target app '{app_path}' does not exist.")
+
+    if not os.path.exists(icns_path):
+        sys.exit(f"Error: Icon file '{icns_path}' does not exist.")
 
     print(f"Applying icon to '{app_path}'...")
     applescript = f"""
@@ -964,6 +975,30 @@ def main():
 
     if args.sync_themes:
         handle_sync_themes(args)
+        return
+
+    if args.icns:
+        icns_path = os.path.abspath(os.path.expanduser(args.icns))
+        if not os.path.exists(icns_path):
+            sys.exit(f"Error: .icns file not found at '{icns_path}'")
+
+        base_name = os.path.splitext(os.path.basename(icns_path))[0]
+
+        if args.preview:
+            preview_path = f"/tmp/{base_name}-preview.png" if args.preview is True else os.path.abspath(os.path.expanduser(args.preview))
+            subprocess.run(["sips", "-s", "format", "png", icns_path, "--out", preview_path], check=True, stdout=subprocess.DEVNULL)
+            print(f"Saved PNG preview: {preview_path}")
+
+        if args.out:
+            out_dest = os.path.abspath(os.path.expanduser(args.out))
+            os.makedirs(os.path.dirname(out_dest), exist_ok=True)
+            shutil.copy(icns_path, out_dest)
+            print(f"Copied icon to: {out_dest}")
+
+        if args.apply:
+            apply_icon_to_app(args.apply, icns_path, restart_dock=not args.no_dock_restart)
+        elif not args.preview and not args.out:
+            print(f"Icon verified at '{icns_path}'. Pass --apply <app_path> to apply it to an application.")
         return
 
     # Determine input type & data
