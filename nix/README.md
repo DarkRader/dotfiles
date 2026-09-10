@@ -102,5 +102,14 @@ nix-collect-garbage -d
   - `defaults.nix`: macOS system preferences (Dock, Finder, Trackpad, Dark mode, Siri).
   - `homebrew.nix`: Homebrew formulae and desktop application casks.
   - `packages.nix`: Common CLI and development packages.
-- `personal/default.nix`: Personal overlay with personal packages, Dock layout, and casks (e.g., IINA).
-- `work/default.nix`: Work overlay with work-specific packages and casks (e.g., Slack, Microsoft Teams, Azure CLI, Poetry).
+- `personal/`: Personal profile overlay.
+  - `default.nix`: Imports personal submodules.
+  - `dock.nix`: Personal Dock persistent-apps.
+  - `homebrew.nix`: Personal Homebrew formulae, casks, and App Store apps.
+  - `packages.nix`: Personal system packages.
+  - `theme.nix`: Personal wallpaper and icon theme selection.
+  - `icons.nix`: Personal custom application icons.
+- `work/`: Work profile overlay.
+  - `default.nix`: Imports work submodules.
+  - `dock.nix`: Work Dock persistent-apps.
+  - `homebrew.nix`: Work Homebrew formulae and casks.
