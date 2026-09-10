@@ -15,6 +15,6 @@
     "/Applications/Zed.app"
     "/Applications/Warp.app"
     "/System/Applications/App Store.app"
-    "/System/Applications/System Settings.app"
+    # (userApp "System Settings")
   ];
 }

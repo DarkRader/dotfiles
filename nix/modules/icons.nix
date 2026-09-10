@@ -39,6 +39,10 @@
         path = "/Applications/Notion Calendar.app";
         icon = getIcon "notion-calendar";
       }
+      {
+        path = userApp "System Settings";
+        icon = getIcon "systemsettings";
+      }
     ];
   };
 }
