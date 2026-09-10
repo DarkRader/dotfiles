@@ -1,0 +1,42 @@
+{
+  "light": {
+    "bg_top": "#FFFFFF",
+    "bg_bottom": "#EBECEF",
+    "border": "#D8D9DC",
+    "symbol_color": "#202022",
+    "shadow": true,
+    "scale": 1.25
+  },
+  "dark": {
+    "bg_top": "#161618",
+    "bg_bottom": "#0D0D0E",
+    "border": "#28282C",
+    "symbol_color": "#FFFFFF",
+    "shadow": false,
+    "scale": 1.25
+  },
+  "light-blue": {
+    "bg_top": "#FFFFFF",
+    "bg_bottom": "#EBECEF",
+    "border": "#D8D9DC",
+    "symbol_color": "#0097FF",
+    "shadow": true,
+    "scale": 1.25
+  },
+  "dark-blue": {
+    "bg_top": "#0097FF",
+    "bg_bottom": "#0097FF",
+    "border": "#0097FF",
+    "symbol_color": "#FFFFFF",
+    "shadow": false,
+    "scale": 1.25
+  },
+  "cyan": {
+    "bg_top": "#161618",
+    "bg_bottom": "#0D0D0E",
+    "border": "#28282C",
+    "symbol_color": "#00FFFF",
+    "shadow": false,
+    "scale": 1.25
+  }
+}

@@ -8,6 +8,7 @@ drop shadow toggles, and one-step application to macOS .app bundles.
 """
 
 import argparse
+import json
 import os
 import re
 import shutil
@@ -34,10 +35,10 @@ THEME_PRESETS = {
         "symbol": "#202022",
     },
     "dark": {
-        "bg_top": "#2C2D31",
-        "bg_bottom": "#1C1D20",
-        "border": "#3A3B40",
-        "symbol": "#F5F5F7",
+        "bg_top": "#161618",
+        "bg_bottom": "#0D0D0E",
+        "border": "#28282C",
+        "symbol": "#FFFFFF",
     },
     "white": {
         "bg_top": "#FFFFFF",
@@ -57,6 +58,42 @@ THEME_PRESETS = {
         "border": "#CBD5E1",
         "symbol": "#0F172A",
     },
+    "nord": {
+        "bg_top": "#2E3440",
+        "bg_bottom": "#242933",
+        "border": "#3B4252",
+        "symbol": "#ECEFF4",
+    },
+    "catppuccin": {
+        "bg_top": "#1E1E2E",
+        "bg_bottom": "#181825",
+        "border": "#313244",
+        "symbol": "#CDD6F4",
+    },
+    "dracula": {
+        "bg_top": "#282A36",
+        "bg_bottom": "#1E1F29",
+        "border": "#44475A",
+        "symbol": "#F8F8F2",
+    },
+    "rose-pine": {
+        "bg_top": "#191724",
+        "bg_bottom": "#12101B",
+        "border": "#26233A",
+        "symbol": "#E0DEF4",
+    },
+    "solarized-dark": {
+        "bg_top": "#073642",
+        "bg_bottom": "#002B36",
+        "border": "#586E75",
+        "symbol": "#FDF6E3",
+    },
+    "solarized-light": {
+        "bg_top": "#FDF6E3",
+        "bg_bottom": "#EEE8D5",
+        "border": "#93A1A1",
+        "symbol": "#657B83",
+    },
 }
 
 COLOR_SHORTCUTS = {
@@ -67,6 +104,10 @@ COLOR_SHORTCUTS = {
     "black": ("#161618", "#0D0D0E"),
     "slate": ("#F1F5F9", "#E2E8F0"),
     "gray": ("#F2F2F7", "#E5E5EA"),
+    "nord": ("#2E3440", "#242933"),
+    "catppuccin": ("#1E1E2E", "#181825"),
+    "dracula": ("#282A36", "#1E1F29"),
+    "rose-pine": ("#191724", "#12101B"),
 }
 
 SYMBOL_SHORTCUTS = {
@@ -76,10 +117,12 @@ SYMBOL_SHORTCUTS = {
     "white": "#FFFFFF",
     "light": "#FFFFFF",
     "blue": "#007AFF",
+    "blue-light": "#0097FF",
     "gray": "#8E8E93",
     "red": "#FF3B30",
     "green": "#34C759",
     "purple": "#AF52DE",
+    "cyan": "#00FFFF",
 }
 
 def parse_args():
@@ -104,11 +147,35 @@ def parse_args():
         "--letter", "-l",
         help="Generate an Apple-style typography lettermark monogram (e.g. 'S', 'G', 'AI')"
     )
+    source_group.add_argument(
+        "--create-theme",
+        metavar="THEME_NAME",
+        help="Batch generate all existing icons into a new theme folder under nix/icons/<THEME_NAME>"
+    )
+    source_group.add_argument(
+        "--sync-themes",
+        action="store_true",
+        help="Sync and regenerate all themes registered in nix/icons/themes.json"
+    )
 
     parser.add_argument(
         "--fallback-letter",
         action="store_true",
         help="If --query is not found online, automatically fall back to an Apple lettermark monogram"
+    )
+    parser.add_argument(
+        "--all-themes",
+        action="store_true",
+        help="When generating a single icon (--query, --svg, etc.), generate it for all registered themes in nix/icons/themes.json"
+    )
+    parser.add_argument(
+        "--from-theme",
+        default="light",
+        help="Reference theme to discover icons from when using --create-theme (default: 'light')"
+    )
+    parser.add_argument(
+        "--icons-dir",
+        help="Base directory containing theme folders (default: auto-detected 'nix/icons')"
     )
 
     # Style options
@@ -536,8 +603,306 @@ return (current application's NSWorkspace's sharedWorkspace()'s setIcon:imageDat
     else:
         print(f"\nWarning: Could not set icon directly. If {app_path} is owned by root, run with sudo or run 'darwin-rebuild switch'.", file=sys.stderr)
 
+def find_repo_root():
+    d = os.path.abspath(os.path.dirname(__file__))
+    while d and d != "/":
+        if os.path.isdir(os.path.join(d, "nix/icons")) or os.path.isfile(os.path.join(d, "nix/flake.nix")):
+            return d
+        parent = os.path.dirname(d)
+        if parent == d:
+            break
+        d = parent
+    return os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../.."))
+
+def get_icons_base_dir(custom_path=None):
+    if custom_path:
+        return os.path.abspath(os.path.expanduser(custom_path))
+    repo_root = find_repo_root()
+    candidate = os.path.join(repo_root, "nix/icons")
+    if os.path.isdir(candidate):
+        return candidate
+    return os.path.abspath("nix/icons")
+
+def load_themes_manifest(manifest_path, icons_base_dir):
+    data = {}
+    if os.path.isfile(manifest_path):
+        try:
+            with open(manifest_path, "r") as f:
+                data = json.load(f)
+        except Exception:
+            data = {}
+
+    if "light" not in data and os.path.isdir(os.path.join(icons_base_dir, "light")):
+        data["light"] = {
+            "bg_top": "#FFFFFF",
+            "bg_bottom": "#EBECEF",
+            "border": "#D8D9DC",
+            "symbol_color": "#202022",
+            "shadow": True,
+            "scale": 1.25,
+        }
+    if "dark" not in data and os.path.isdir(os.path.join(icons_base_dir, "dark")):
+        data["dark"] = {
+            "bg_top": "#161618",
+            "bg_bottom": "#0D0D0E",
+            "border": "#28282C",
+            "symbol_color": "#FFFFFF",
+            "shadow": False,
+            "scale": 1.25,
+        }
+    return data
+
+def save_themes_manifest(manifest_path, data):
+    try:
+        with open(manifest_path, "w") as f:
+            json.dump(data, f, indent=2)
+            f.write("\n")
+    except Exception as e:
+        print(f"Warning: Could not save themes manifest to {manifest_path}: {e}", file=sys.stderr)
+
+def generate_single_icon(icon_info, out_icns, bg_top, bg_bottom, border, symbol_color, scale=1.25, shadow=True, preview_path=None):
+    temp_dir = tempfile.mkdtemp(prefix="mac_icon_")
+    try:
+        if icon_info["type"] == "letter":
+            svg_markup = build_letter_svg(
+                icon_info["letter"],
+                bg_top,
+                bg_bottom,
+                border,
+                symbol_color,
+                scale,
+                shadow=shadow
+            )
+        else:
+            svg_markup = build_svg(
+                icon_info["path_d"],
+                icon_info["viewbox"],
+                bg_top,
+                bg_bottom,
+                border,
+                symbol_color,
+                scale,
+                icon_info.get("fill_rule", "evenodd"),
+                shadow=shadow
+            )
+
+        svg_file = os.path.join(temp_dir, "composed.svg")
+        with open(svg_file, "w") as f:
+            f.write(svg_markup)
+
+        repo_root = find_repo_root()
+        ref_mask = os.path.join(repo_root, "nix/icons/light/discord.icns")
+        if not os.path.exists(ref_mask):
+            ref_mask = "/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/GenericApplicationIcon.icns"
+
+        is_dark_bg = is_color_dark(bg_top) or is_color_dark(bg_bottom)
+        masked_png = render_and_mask(svg_file, temp_dir, ref_mask, shadow=shadow, is_dark=is_dark_bg)
+
+        if preview_path:
+            shutil.copy(masked_png, preview_path)
+            print(f"Saved PNG preview: {preview_path}")
+
+        out_icns = os.path.abspath(os.path.expanduser(out_icns))
+        compile_icns(masked_png, out_icns, temp_dir)
+        return out_icns
+    finally:
+        shutil.rmtree(temp_dir, ignore_errors=True)
+
+def handle_create_theme(args):
+    theme_name = args.create_theme.strip().lower()
+    icons_base_dir = get_icons_base_dir(args.icons_dir)
+    target_dir = os.path.join(icons_base_dir, theme_name)
+    os.makedirs(target_dir, exist_ok=True)
+
+    ref_theme = args.from_theme if args.from_theme else "light"
+    ref_dir = os.path.join(icons_base_dir, ref_theme)
+    if not os.path.isdir(ref_dir):
+        candidates = ["light", "dark"] + [d for d in os.listdir(icons_base_dir) if os.path.isdir(os.path.join(icons_base_dir, d)) and not d.startswith(".")]
+        for c in candidates:
+            c_dir = os.path.join(icons_base_dir, c)
+            if os.path.isdir(c_dir) and any(f.endswith(".icns") for f in os.listdir(c_dir)):
+                ref_dir = c_dir
+                ref_theme = c
+                break
+
+    if not os.path.isdir(ref_dir):
+        sys.exit(f"Error: Could not find reference theme directory under '{icons_base_dir}'.")
+
+    existing_icons = sorted([
+        os.path.splitext(f)[0]
+        for f in os.listdir(ref_dir)
+        if f.endswith(".icns") and not f.startswith(".")
+    ])
+
+    if not existing_icons:
+        sys.exit(f"Error: No .icns icons found in reference theme '{ref_theme}' ({ref_dir}).")
+
+    if theme_name in THEME_PRESETS and not args.bg and args.theme == "light":
+        args.theme = theme_name
+
+    bg_top, bg_bottom, border, symbol_color = compute_styling(args)
+    scale = args.scale
+    shadow = args.shadow
+
+    bg_display = bg_top if bg_top == bg_bottom else f"{bg_top} -> {bg_bottom}"
+    print(f"\n🎨 Creating new icon theme '{theme_name}' with {len(existing_icons)} icons:")
+    print(f"   Target Directory : {target_dir}")
+    print(f"   Reference Theme  : {ref_theme} ({len(existing_icons)} icons)")
+    print(f"   Background       : {bg_display}")
+    print(f"   Border           : {border}")
+    print(f"   Symbol Color     : {symbol_color}")
+    print(f"   Shadow           : {'Enabled' if shadow else 'Disabled (flat)'}")
+    print(f"   Scale            : {scale}\n")
+
+    themes_file = os.path.join(icons_base_dir, "themes.json")
+    themes_data = load_themes_manifest(themes_file, icons_base_dir)
+    themes_data[theme_name] = {
+        "bg_top": bg_top,
+        "bg_bottom": bg_bottom,
+        "border": border,
+        "symbol_color": symbol_color,
+        "shadow": shadow,
+        "scale": scale,
+    }
+    save_themes_manifest(themes_file, themes_data)
+
+    success_count = 0
+    failed_icons = []
+
+    for i, icon_name in enumerate(existing_icons, start=1):
+        print(f"   [{i:2d}/{len(existing_icons)}] Generating {icon_name}.icns ... ", end="", flush=True)
+        out_file = os.path.join(target_dir, f"{icon_name}.icns")
+        try:
+            icon_info = fetch_icon_or_create(icon_name, fallback_letter=True)
+            generate_single_icon(
+                icon_info=icon_info,
+                out_icns=out_file,
+                bg_top=bg_top,
+                bg_bottom=bg_bottom,
+                border=border,
+                symbol_color=symbol_color,
+                scale=scale,
+                shadow=shadow
+            )
+            print("✓")
+            success_count += 1
+        except Exception as e:
+            print(f"✗ ({e})")
+            failed_icons.append((icon_name, str(e)))
+
+    print(f"\n✨ Theme '{theme_name}' successfully generated ({success_count}/{len(existing_icons)} icons in '{target_dir}').")
+    if failed_icons:
+        print(f"⚠️  {len(failed_icons)} icons failed: {', '.join(k for k, _ in failed_icons)}")
+
+    print(f"\n💡 To activate this theme in Nix:")
+    print(f"   1. Set in nix/personal/default.nix or nix/shared.nix:")
+    print(f"        theme.icons = \"{theme_name}\";")
+    print(f"   2. Stage icons:")
+    print(f"        git add nix/icons/{theme_name}")
+    print(f"   3. Apply:")
+    print(f"        darwin-rebuild switch --flake ~/dotfiles/nix#macbook-personal\n")
+
+def handle_all_themes(args, icon_info, base_name):
+    icons_base_dir = get_icons_base_dir(args.icons_dir)
+    themes_file = os.path.join(icons_base_dir, "themes.json")
+    themes_data = load_themes_manifest(themes_file, icons_base_dir)
+
+    print(f"\n🌐 Generating icon '{base_name}.icns' across {len(themes_data)} registered theme(s):")
+    success_count = 0
+    for theme_name, cfg in themes_data.items():
+        theme_dir = os.path.join(icons_base_dir, theme_name)
+        os.makedirs(theme_dir, exist_ok=True)
+        out_file = os.path.join(theme_dir, f"{base_name}.icns")
+
+        bg_top = cfg.get("bg_top", "#FFFFFF")
+        bg_bottom = cfg.get("bg_bottom", bg_top)
+        border = cfg.get("border", "#D8D9DC")
+        symbol_color = cfg.get("symbol_color", "#202022")
+        scale = cfg.get("scale", args.scale)
+        shadow = cfg.get("shadow", True)
+
+        print(f"   • {theme_name:<14} -> {theme_name}/{base_name}.icns ... ", end="", flush=True)
+        try:
+            generate_single_icon(
+                icon_info=icon_info,
+                out_icns=out_file,
+                bg_top=bg_top,
+                bg_bottom=bg_bottom,
+                border=border,
+                symbol_color=symbol_color,
+                scale=scale,
+                shadow=shadow
+            )
+            print("✓")
+            success_count += 1
+        except Exception as e:
+            print(f"✗ ({e})")
+
+    print(f"\n✨ Successfully generated '{base_name}.icns' across {success_count}/{len(themes_data)} themes.")
+    print(f"💡 Don't forget to track them with git:")
+    print(f"   git add nix/icons/*/{base_name}.icns\n")
+
+def handle_sync_themes(args):
+    icons_base_dir = get_icons_base_dir(args.icons_dir)
+    themes_file = os.path.join(icons_base_dir, "themes.json")
+    themes_data = load_themes_manifest(themes_file, icons_base_dir)
+
+    all_icon_names = set()
+    for theme_name in themes_data:
+        t_dir = os.path.join(icons_base_dir, theme_name)
+        if os.path.isdir(t_dir):
+            for f in os.listdir(t_dir):
+                if f.endswith(".icns") and not f.startswith("."):
+                    all_icon_names.add(os.path.splitext(f)[0])
+
+    if not all_icon_names:
+        sys.exit(f"Error: No .icns icons found across any themes in '{icons_base_dir}'.")
+
+    all_icons_list = sorted(list(all_icon_names))
+    print(f"\n🔄 Syncing {len(all_icons_list)} icons across {len(themes_data)} themes ({', '.join(themes_data.keys())})...\n")
+
+    for theme_name, cfg in themes_data.items():
+        print(f"📦 Theme: {theme_name}")
+        t_dir = os.path.join(icons_base_dir, theme_name)
+        os.makedirs(t_dir, exist_ok=True)
+        bg_top = cfg.get("bg_top", "#FFFFFF")
+        bg_bottom = cfg.get("bg_bottom", bg_top)
+        border = cfg.get("border", "#D8D9DC")
+        symbol_color = cfg.get("symbol_color", "#202022")
+        scale = cfg.get("scale", 1.25)
+        shadow = cfg.get("shadow", True)
+
+        for icon_name in all_icons_list:
+            out_file = os.path.join(t_dir, f"{icon_name}.icns")
+            if not os.path.exists(out_file):
+                print(f"   Adding missing {icon_name}.icns ... ", end="", flush=True)
+                try:
+                    icon_info = fetch_icon_or_create(icon_name, fallback_letter=True)
+                    generate_single_icon(
+                        icon_info=icon_info,
+                        out_icns=out_file,
+                        bg_top=bg_top,
+                        bg_bottom=bg_bottom,
+                        border=border,
+                        symbol_color=symbol_color,
+                        scale=scale,
+                        shadow=shadow
+                    )
+                    print("✓")
+                except Exception as e:
+                    print(f"✗ ({e})")
+    print(f"\n✨ All themes are now synchronized!\n")
+
 def main():
     args = parse_args()
+
+    if args.create_theme:
+        handle_create_theme(args)
+        return
+
+    if args.sync_themes:
+        handle_sync_themes(args)
+        return
 
     # Determine input type & data
     if args.query:
@@ -556,11 +921,15 @@ def main():
         icon_info = {"type": "path", "path_d": args.path, "viewbox": args.viewbox, "fill_rule": "evenodd"}
         base_name = "custom"
 
+    if args.all_themes:
+        handle_all_themes(args, icon_info, base_name)
+        return
+
     # Automatically derive output ICNS path if omitted
     if not args.out:
         if args.apply:
             app_stem = os.path.splitext(os.path.basename(args.apply))[0].lower().replace(" ", "-")
-            repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../.."))
+            repo_root = find_repo_root()
             nix_icons_dir = os.path.join(repo_root, "nix/icons/light")
             if os.path.isdir(nix_icons_dir):
                 args.out = os.path.join(nix_icons_dir, f"{app_stem}.icns")
@@ -579,59 +948,21 @@ def main():
     # Determine colors
     bg_top, bg_bottom, border, symbol_color = compute_styling(args)
 
-    temp_dir = tempfile.mkdtemp(prefix="mac_icon_")
-    try:
-        if icon_info["type"] == "letter":
-            svg_markup = build_letter_svg(
-                icon_info["letter"],
-                bg_top,
-                bg_bottom,
-                border,
-                symbol_color,
-                args.scale,
-                shadow=args.shadow
-            )
-        else:
-            svg_markup = build_svg(
-                icon_info["path_d"],
-                icon_info["viewbox"],
-                bg_top,
-                bg_bottom,
-                border,
-                symbol_color,
-                args.scale,
-                icon_info.get("fill_rule", "evenodd"),
-                shadow=args.shadow
-            )
+    out_icns = generate_single_icon(
+        icon_info=icon_info,
+        out_icns=args.out,
+        bg_top=bg_top,
+        bg_bottom=bg_bottom,
+        border=border,
+        symbol_color=symbol_color,
+        scale=args.scale,
+        shadow=args.shadow,
+        preview_path=preview_path
+    )
 
-        svg_file = os.path.join(temp_dir, "composed.svg")
-        with open(svg_file, "w") as f:
-            f.write(svg_markup)
-
-        # Locate reference squircle mask: local dotfiles icon -> system generic icon
-        repo_root = os.path.abspath(os.path.join(os.path.dirname(__file__), "../../../.."))
-        ref_mask = os.path.join(repo_root, "nix/icons/light/discord.icns")
-        if not os.path.exists(ref_mask):
-            ref_mask = "/System/Library/CoreServices/CoreTypes.bundle/Contents/Resources/GenericApplicationIcon.icns"
-
-        is_dark_bg = is_color_dark(bg_top) or is_color_dark(bg_bottom)
-        masked_png = render_and_mask(svg_file, temp_dir, ref_mask, shadow=args.shadow, is_dark=is_dark_bg)
-
-        # Optional preview save
-        if preview_path:
-            shutil.copy(masked_png, preview_path)
-            print(f"Saved PNG preview: {preview_path}")
-
-        # Compile ICNS
-        out_icns = os.path.abspath(os.path.expanduser(args.out))
-        compile_icns(masked_png, out_icns, temp_dir)
-
-        # Optional application
-        if args.apply:
-            apply_icon_to_app(args.apply, out_icns, restart_dock=not args.no_dock_restart)
-
-    finally:
-        shutil.rmtree(temp_dir, ignore_errors=True)
+    # Optional application
+    if args.apply:
+        apply_icon_to_app(args.apply, out_icns, restart_dock=not args.no_dock_restart)
 
 if __name__ == "__main__":
     main()

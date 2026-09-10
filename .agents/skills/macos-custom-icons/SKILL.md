@@ -43,26 +43,50 @@ Run directly from your terminal:
 
 | Flag | Description | Default | Example |
 | :--- | :--- | :--- | :--- |
+| `--create-theme` | Batch generate all existing icons into a new theme folder | — | `--create-theme nord --bg "#2E3440" --color "#ECEFF4"` |
+| `--all-themes` | Generate icon across all registered themes in `themes.json` | `false` | `--query linear --all-themes` |
+| `--sync-themes` | Ensure all themes have the complete set of icons | `false` | `--sync-themes` |
 | `-q, --query` | Search term or link from Simple Icons / CDN | — | `--query slack` or `--query "https://simpleicons.org/?q=warp"` |
 | `-a, --apply` | Target `.app` to immediately apply icon to & restart Dock | — | `--apply "/Applications/Slack.app"` |
-| `-b, --bg` | Background color/gradient (`white`, `dark`, `slate`, or hex) | `white` | `--bg white` or `--bg "#FFFFFF,#EBECEF"` |
+| `-b, --bg` | Background color/gradient (`white`, `dark`, `slate`, `nord`, or hex) | `white` | `--bg white` or `--bg "#FFFFFF,#EBECEF"` |
 | `-c, --color` | Symbol color (`black`, `white`, `blue`, or hex) | `black` | `--color black` or `--color "#202022"` |
 | `--shadow` / `--no-shadow` | Enable or disable smooth elevation shadow on symbol | `--shadow` | `--no-shadow` (for flat look) |
 | `--scale` | Symbol scale factor (tuned for squircle grid) | `1.25` | `--scale 1.25` or `--scale 1.35` |
 | `-o, --out` | Destination path for `.icns` | Auto-derived | `--out nix/icons/light/slack.icns` |
+| `--from-theme` | Reference theme to discover icons from (with `--create-theme`) | `light` | `--from-theme dark` |
 | `--preview` | Output a 1024x1024 PNG preview | Optional | `--preview` or `--preview /tmp/test.png` |
 | `-l, --letter` | Generate an Apple-style monogram | — | `--letter "S"` or `--letter "AI"` |
 | `--fallback-letter` | Fall back to an Apple lettermark if not found online | `false` | `--query myapp --fallback-letter` |
 | `-s, --svg` | Local SVG file path | — | `--svg ./logo.svg` |
 | `-p, --path` | Direct SVG path `d="..."` | — | `--path "M12 0C..."` |
-| `-t, --theme` | Base theme preset (`light`, `dark`, `white`, `black`, `slate`) | `light` | `--theme dark` |
+| `-t, --theme` | Base preset (`light`, `dark`, `white`, `black`, `slate`, `nord`, `catppuccin`, `dracula`) | `light` | `--theme nord` |
 | `--no-dock-restart` | Do not restart Dock after applying icon | `false` | `--no-dock-restart` |
 
 ---
 
 ## Examples
 
-### 1. Auto-Fetch & Apply with Custom Colors (One Command)
+### 1. Batch Create a New Theme Folder (All Existing Icons)
+Generate a full set of icons for a new theme (e.g. `nord`, `catppuccin`, or custom colors) in a single command:
+```bash
+.agents/skills/macos-custom-icons/scripts/icon_tool.py \
+  --create-theme nord \
+  --bg "#2E3440" \
+  --color "#ECEFF4" \
+  --no-shadow
+```
+*Discovers all existing icons in `nix/icons/light/` and generates matching `.icns` files in `nix/icons/nord/`, registering the theme in `nix/icons/themes.json`.*
+
+### 2. Add a New App Icon Across All Existing Themes
+When adding a newly installed app to your configuration, generate its icon for all registered themes at once:
+```bash
+.agents/skills/macos-custom-icons/scripts/icon_tool.py \
+  --query raycast \
+  --all-themes
+```
+*Generates `raycast.icns` in `nix/icons/light/`, `nix/icons/dark/`, and any other theme folders configured in `themes.json`.*
+
+### 3. Auto-Fetch & Apply with Custom Colors (Single Icon)
 ```bash
 .agents/skills/macos-custom-icons/scripts/icon_tool.py \
   --query googlegemini \
@@ -73,7 +97,7 @@ Run directly from your terminal:
   --apply "/Applications/Gemini.app"
 ```
 
-### 2. Custom Colored Accent Icon (e.g. Blue Symbol on Slate Background)
+### 4. Custom Colored Accent Icon
 ```bash
 .agents/skills/macos-custom-icons/scripts/icon_tool.py \
   --query discord \
@@ -82,7 +106,7 @@ Run directly from your terminal:
   --out nix/icons/light/discord.icns
 ```
 
-### 3. Dark Theme Icon
+### 5. Dark Theme Icon
 ```bash
 .agents/skills/macos-custom-icons/scripts/icon_tool.py \
   --query obsidian \
@@ -91,7 +115,7 @@ Run directly from your terminal:
   --out nix/icons/dark/obsidian.icns
 ```
 
-### 4. From Local SVG File
+### 6. From Local SVG File
 ```bash
 .agents/skills/macos-custom-icons/scripts/icon_tool.py \
   --svg ./custom-logo.svg \
