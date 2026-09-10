@@ -6,5 +6,6 @@
     ./dock.nix
     ./homebrew.nix
     ./packages.nix
+    ./login-items.nix
   ];
 }
