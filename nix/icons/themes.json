@@ -38,5 +38,13 @@
     "symbol_color": "#00FFFF",
     "shadow": false,
     "scale": 1.25
+  },
+  "apple": {
+    "bg_top": "#FFFFFF",
+    "bg_bottom": "#EBECEF",
+    "border": "#D8D9DC",
+    "symbol_color": "#00C8FF,#0072FE",
+    "shadow": true,
+    "scale": 1.25
   }
 }

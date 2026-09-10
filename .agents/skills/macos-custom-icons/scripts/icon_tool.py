@@ -94,6 +94,12 @@ THEME_PRESETS = {
         "border": "#93A1A1",
         "symbol": "#657B83",
     },
+    "apple": {
+        "bg_top": "#FFFFFF",
+        "bg_bottom": "#EBECEF",
+        "border": "#D8D9DC",
+        "symbol": "#00C8FF,#0072FE",
+    },
 }
 
 COLOR_SHORTCUTS = {
@@ -118,6 +124,8 @@ SYMBOL_SHORTCUTS = {
     "light": "#FFFFFF",
     "blue": "#007AFF",
     "blue-light": "#0097FF",
+    "finder": "#00C8FF,#0072FE",
+    "apple": "#00C8FF,#0072FE",
     "gray": "#8E8E93",
     "red": "#FF3B30",
     "green": "#34C759",
@@ -436,6 +444,24 @@ def build_svg(path_d, viewbox, bg_top, bg_bottom, border, symbol_color, scale, f
 
     filter_attr = ' filter="url(#symbol-shadow)"' if shadow else ""
 
+    # Support gradient symbol fill
+    sym_grad_def = ""
+    fill_attr = symbol_color
+    if isinstance(symbol_color, (list, tuple)):
+        sym_top, sym_bottom = symbol_color[0], symbol_color[1]
+    elif "," in str(symbol_color):
+        parts = [p.strip() for p in str(symbol_color).split(",")]
+        sym_top, sym_bottom = parts[0], parts[1]
+    else:
+        sym_top, sym_bottom = None, None
+
+    if sym_top and sym_bottom:
+        sym_grad_def = f"""    <linearGradient id="symbol-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="{sym_top}"/>
+      <stop offset="100%" stop-color="{sym_bottom}"/>
+    </linearGradient>"""
+        fill_attr = "url(#symbol-grad)"
+
     svg = f"""<svg width="{CANVAS_SIZE}" height="{CANVAS_SIZE}" viewBox="0 0 {CANVAS_SIZE} {CANVAS_SIZE}" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <filter id="symbol-shadow" x="-50%" y="-50%" width="200%" height="200%">
@@ -446,6 +472,7 @@ def build_svg(path_d, viewbox, bg_top, bg_bottom, border, symbol_color, scale, f
       <stop offset="0%" stop-color="{bg_top}"/>
       <stop offset="100%" stop-color="{bg_bottom}"/>
     </linearGradient>
+{sym_grad_def}
   </defs>
 
   <!-- Base Squircle -->
@@ -453,7 +480,7 @@ def build_svg(path_d, viewbox, bg_top, bg_bottom, border, symbol_color, scale, f
 
   <!-- Centered Symbol -->
   <g transform="translate(512, 504) scale({calc_scale}) translate({-center_x}, {-center_y})"{filter_attr}>
-    <path fill="{symbol_color}" fill-rule="{fill_rule}" d="{path_d}"/>
+    <path fill="{fill_attr}" fill-rule="{fill_rule}" d="{path_d}"/>
   </g>
 </svg>"""
     return svg
@@ -463,6 +490,23 @@ def build_letter_svg(letter, bg_top, bg_bottom, border, symbol_color, scale, sha
     y_pos = 635 if len(letter) == 1 else 600
     filter_attr = ' filter="url(#symbol-shadow)"' if shadow else ""
 
+    sym_grad_def = ""
+    fill_attr = symbol_color
+    if isinstance(symbol_color, (list, tuple)):
+        sym_top, sym_bottom = symbol_color[0], symbol_color[1]
+    elif "," in str(symbol_color):
+        parts = [p.strip() for p in str(symbol_color).split(",")]
+        sym_top, sym_bottom = parts[0], parts[1]
+    else:
+        sym_top, sym_bottom = None, None
+
+    if sym_top and sym_bottom:
+        sym_grad_def = f"""    <linearGradient id="symbol-grad" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="{sym_top}"/>
+      <stop offset="100%" stop-color="{sym_bottom}"/>
+    </linearGradient>"""
+        fill_attr = "url(#symbol-grad)"
+
     svg = f"""<svg width="{CANVAS_SIZE}" height="{CANVAS_SIZE}" viewBox="0 0 {CANVAS_SIZE} {CANVAS_SIZE}" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <filter id="symbol-shadow" x="-50%" y="-50%" width="200%" height="200%">
@@ -473,13 +517,14 @@ def build_letter_svg(letter, bg_top, bg_bottom, border, symbol_color, scale, sha
       <stop offset="0%" stop-color="{bg_top}"/>
       <stop offset="100%" stop-color="{bg_bottom}"/>
     </linearGradient>
+{sym_grad_def}
   </defs>
 
   <!-- Base Squircle -->
   <rect x="{TILE_X}" y="{TILE_Y}" width="{TILE_SIZE}" height="{TILE_SIZE}" rx="{CORNER_RADIUS}" fill="url(#bg-grad)" stroke="{border}" stroke-width="1.5"/>
 
   <!-- Centered Lettermark -->
-  <text x="512" y="{y_pos}" font-family="-apple-system, 'SF Pro Display', system-ui, sans-serif" font-size="{font_size}" font-weight="800" text-anchor="middle" fill="{symbol_color}"{filter_attr}>{letter}</text>
+  <text x="512" y="{y_pos}" font-family="-apple-system, 'SF Pro Display', system-ui, sans-serif" font-size="{font_size}" font-weight="800" text-anchor="middle" fill="{fill_attr}"{filter_attr}>{letter}</text>
 </svg>"""
     return svg
 
