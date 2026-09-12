@@ -22,20 +22,17 @@ This skill provides procedures, automation scripts, and templates for designing,
 
 ## Directory Structure
 
-* [`scripts/icon_tool.py`](./scripts/icon_tool.py): Comprehensive Python CLI tool to generate, style, and apply icons with custom background colors/gradients, icon colors, scaling, auto-fetching from Simple Icons, and direct `.icns` application.
 * [`resources/base-squircle.svg`](./resources/base-squircle.svg): Base SVG template of the Apple squircle tile.
 * [`references/nix-darwin-integration.md`](./references/nix-darwin-integration.md): Guide for `nix-darwin-custom-icons` integration in flakes.
 * [`references/troubleshooting.md`](./references/troubleshooting.md): Solutions for white dock borders, permission errors, and dock cache refresh.
 
 ---
 
-## CLI Usage (`icon_tool.py`)
+## CLI Tooling (`macicon`)
 
-Run directly from your terminal:
+The custom icon generation and application engine is powered directly by the standalone `macicon` CLI tool ([DarkRader/macicon](https://github.com/DarkRader/macicon)), managed via Homebrew in `nix/modules/homebrew.nix` (`DarkRader/tap/macicon`).
 
-```bash
-.agents/skills/macos-custom-icons/scripts/icon_tool.py [options]
-```
+All icon generation, theme synchronization, and application workflows call `macicon` directly from the terminal.
 
 ### CLI Options
 
@@ -68,7 +65,7 @@ Run directly from your terminal:
 ### 1. Batch Create a New Theme Folder (All Existing Icons)
 Generate a full set of icons for a new theme (e.g. `nord`, `catppuccin`, or custom colors) in a single command:
 ```bash
-.agents/skills/macos-custom-icons/scripts/icon_tool.py \
+macicon \
   --create-theme nord \
   --bg "#2E3440" \
   --color "#ECEFF4" \
@@ -79,7 +76,7 @@ Generate a full set of icons for a new theme (e.g. `nord`, `catppuccin`, or cust
 ### 2. Add a New App Icon Across All Existing Themes
 When adding a newly installed app to your configuration, generate its icon for all registered themes at once:
 ```bash
-.agents/skills/macos-custom-icons/scripts/icon_tool.py \
+macicon \
   --query raycast \
   --all-themes
 ```
@@ -87,7 +84,7 @@ When adding a newly installed app to your configuration, generate its icon for a
 
 ### 3. Auto-Fetch & Apply with Custom Colors (Single Icon)
 ```bash
-.agents/skills/macos-custom-icons/scripts/icon_tool.py \
+macicon \
   --query googlegemini \
   --bg "#FFFFFF,#EBECEF" \
   --color "#202022" \
@@ -98,7 +95,7 @@ When adding a newly installed app to your configuration, generate its icon for a
 
 ### 4. Custom Colored Accent Icon
 ```bash
-.agents/skills/macos-custom-icons/scripts/icon_tool.py \
+macicon \
   --query discord \
   --bg "#F8FAFC,#E2E8F0" \
   --color "#5865F2" \
@@ -107,7 +104,7 @@ When adding a newly installed app to your configuration, generate its icon for a
 
 ### 5. Dark Theme Icon
 ```bash
-.agents/skills/macos-custom-icons/scripts/icon_tool.py \
+macicon \
   --query obsidian \
   --theme dark \
   --color "#FFFFFF" \
@@ -116,7 +113,7 @@ When adding a newly installed app to your configuration, generate its icon for a
 
 ### 6. From Local SVG File
 ```bash
-.agents/skills/macos-custom-icons/scripts/icon_tool.py \
+macicon \
   --svg ./custom-logo.svg \
   --bg "#FFFFFF,#F3F4F6" \
   --color "#000000" \
@@ -154,7 +151,7 @@ darwin-rebuild switch --flake ~/dotfiles/nix#macbook-personal
 To apply an existing icon without waiting for a full system rebuild:
 
 ```bash
-.agents/skills/macos-custom-icons/scripts/icon_tool.py \
+macicon \
   --icns "$HOME/dotfiles/nix/icons/light/<app-name>.icns" \
   --apply "/Applications/<App>.app"
 ```

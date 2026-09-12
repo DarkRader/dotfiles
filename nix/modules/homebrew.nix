@@ -11,12 +11,14 @@
 
     taps = [
       "hashicorp/tap"
+      "DarkRader/tap"
     ];
 
     # Infrastructure tools
     brews = [
       "hashicorp/tap/terraform"
       "hashicorp/tap/vault"
+      "DarkRader/tap/macicon"
     ];
 
     # Desktop applications

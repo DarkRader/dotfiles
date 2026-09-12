@@ -32,6 +32,7 @@
 
           trust.taps = [
             "hashicorp/tap"
+            "DarkRader/tap"
           ];
         };
       }

@@ -4,7 +4,7 @@
 
 * **Symptom**: The icon appears as an ugly solid white square on the Dock instead of a rounded squircle.
 * **Cause**: QuickLook (`qlmanage`) or an image exporter filled the transparent padding outside the squircle with solid white `#FFFFFF`.
-* **Fix**: Ensure the alpha channel outside the 824x824 squircle is 0. Use `icon_tool.py`, which automatically masks the icon using Cocoa graphics contexts before compiling with `iconutil`.
+* **Fix**: Ensure the alpha channel outside the 824x824 squircle is 0. Use `macicon`, which automatically masks the icon using Cocoa graphics contexts before compiling with `iconutil`.
 
 ## 2. "Permission Denied" When Applying Icon
 
