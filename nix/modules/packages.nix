@@ -27,6 +27,7 @@
     pkgs.mas
     pkgs.pre-commit
     pkgs.skills
+    pkgs.mise
 
     # Media and system tools
     pkgs.ffmpeg
