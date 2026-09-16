@@ -1,7 +1,8 @@
 { ... }:
 {
   theme = {
-    icons = "apple";
+    # icons = "apple";
+    icons = "apple-dark";
     wallpaper = ../wallpapers/moonlit-azure.jpg;
 
     # icons = "light";
