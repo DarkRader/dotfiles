@@ -41,6 +41,7 @@
       "telegram"
       "notion-calendar"
       "ticktick"
+      "openlogi"
     ];
   };
 }
