@@ -14,7 +14,5 @@
     "/Applications/Telegram.app"
     "/Applications/Zed.app"
     "/Applications/Warp.app"
-    "/System/Applications/App Store.app"
-    # (userApp "System Settings")
   ];
 }
