@@ -13,5 +13,6 @@
   system.stateVersion = 6;
   nixpkgs.hostPlatform = "aarch64-darwin";
 
-  nix.settings.experimental-features = "nix-command flakes";
+  # Determinate Nix manages the daemon and nix.conf
+  nix.enable = false;
 }
