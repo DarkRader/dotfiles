@@ -15,6 +15,7 @@
       "claude"
       "gcloud-cli"
       "bitwarden"
+      "claude-code"
     ];
   };
 }
