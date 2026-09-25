@@ -1,7 +1,0 @@
-# Personal-only Homebrew dependencies.
-# Tools for the WireGuard secure network tunnel
-brew "wireguard-tools"
-# Feature-rich command-line audio/video downloader
-brew "yt-dlp"
-# Free and open-source media player
-cask "iina"
