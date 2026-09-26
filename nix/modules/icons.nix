@@ -43,6 +43,10 @@
         path = userApp "System Settings";
         icon = getIcon "systemsettings";
       }
+      {
+        path = userApp "App Store";
+        icon = getIcon "appstore";
+      }
     ];
   };
 }

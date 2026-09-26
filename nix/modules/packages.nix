@@ -24,7 +24,6 @@
     # Development tools
     pkgs.nixd
     pkgs.nil
-    pkgs.mas
     pkgs.pre-commit
     pkgs.skills
     pkgs.mise

@@ -19,6 +19,7 @@
       "hashicorp/tap/terraform"
       "hashicorp/tap/vault"
       "DarkRader/tap/macicon"
+      "mas"
     ];
 
     # Desktop applications
@@ -42,6 +43,9 @@
       "notion-calendar"
       "ticktick"
       "openlogi"
+      "monitorcontrol"
+      # "the-unarchiver"
+      # "sf-symbols"
     ];
   };
 }
