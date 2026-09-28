@@ -49,6 +49,9 @@ cloud_conversation_storage_enabled = true
 nld_in_terminal_enabled = true
 ai_auto_detection_enabled = true
 
+[agents.warp_agent.other]
+should_render_use_agent_toolbar_for_user_commands = false
+
 [agents.execution_profiles]
 
 [agents.execution_profiles.default]
