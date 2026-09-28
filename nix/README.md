@@ -9,7 +9,7 @@ This directory manages system packages, macOS defaults, and Homebrew casks and f
 | Profile | Target User | Configuration |
 | --- | --- | --- |
 | `macbook-personal` | `Artyom` | [personal/default.nix](personal/default.nix) + [shared.nix](shared.nix) |
-| `macbook-work` | `artemk` | [work/default.nix](work/default.nix) + [shared.nix](shared.nix) |
+| `macbook-work` | `artem` | [work/default.nix](work/default.nix) + [shared.nix](shared.nix) |
 
 ## Initial Setup On A New Mac
 

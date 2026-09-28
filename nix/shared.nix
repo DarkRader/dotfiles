@@ -15,4 +15,7 @@
 
   # Determinate Nix manages the daemon and nix.conf
   nix.enable = false;
+
+  # Enable Touch ID for sudo authentication in terminal
+  security.pam.services.sudo_local.touchIdAuth = true;
 }
