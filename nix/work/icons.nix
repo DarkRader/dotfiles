@@ -7,7 +7,7 @@
     }
     {
       path = "/Applications/Microsoft Teams.app";
-      icon = getIcon "microsoft-teams";
+      icon = getIcon "microsoftteams";
     }
     {
       path = "/Applications/Claude.app";

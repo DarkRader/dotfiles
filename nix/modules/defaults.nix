@@ -16,6 +16,7 @@
     };
 
     dock = {
+      largesize = 80;
       magnification = true;
       mineffect = "scale";
       minimize-to-application = true;
