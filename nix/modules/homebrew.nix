@@ -20,6 +20,7 @@
       "hashicorp/tap/vault"
       "DarkRader/tap/macicon"
       "mas"
+      "blueutil"
     ];
 
     # Desktop applications
