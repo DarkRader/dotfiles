@@ -10,6 +10,7 @@
     pkgs.stow
 
     # Shell and terminal
+    pkgs.oh-my-zsh
     pkgs.starship
     pkgs.eza
     pkgs.tmux

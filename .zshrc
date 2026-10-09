@@ -40,7 +40,7 @@ if [[ ! -f /usr/local/share/zsh/site-functions/_brew ]]; then
 fi
 
 # Running Oh My Zsh
-source $ZSH/oh-my-zsh.sh
+[[ -f "$ZSH/oh-my-zsh.sh" ]] && source "$ZSH/oh-my-zsh.sh"
 
 echo
 
