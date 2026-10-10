@@ -30,6 +30,5 @@
 
     # Media and system tools
     pkgs.ffmpeg
-    pkgs.htop
   ];
 }

@@ -1,3 +1,6 @@
+[tools]
+"github:DarkRader/macicon" = "0.3.1"
+
 [settings.dotfiles]
 root = "."
 
@@ -13,6 +16,7 @@ root = "."
 "~/.zsh" = {}
 "~/.zshrc" = {}
 
+# Dotfiles Tasks
 [tasks."dot:apply"]
 description = "Apply dotfile symlinks into home directory"
 run = "mise dot apply"
@@ -32,3 +36,24 @@ run = "mise dot add -l"
 [tasks."dot:unapply"]
 description = "Remove dotfile symlinks from home directory"
 run = "mise dot unapply"
+
+# Macicon Tasks
+[tasks.icon]
+description = "Run macicon command"
+run = "macicon"
+
+[tasks."icon:sync"]
+description = "Sync and regenerate missing icons across all themes in themes.json"
+run = "macicon --sync-themes"
+
+[tasks."icon:all"]
+description = "Generate an icon across all registered themes"
+run = "macicon --all-themes"
+
+[tasks."icon:create-theme"]
+description = "Batch generate all existing icons into a new theme folder"
+run = "macicon --create-theme"
+
+[tasks."icon:preview"]
+description = "Generate an icon with a 1024x1024 PNG preview"
+run = "macicon --preview"

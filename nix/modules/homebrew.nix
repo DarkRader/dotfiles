@@ -11,14 +11,11 @@
 
     taps = [
       "hashicorp/tap"
-      "DarkRader/tap"
     ];
 
     # Infrastructure tools
     brews = [
       "hashicorp/tap/terraform"
-      "hashicorp/tap/vault"
-      "DarkRader/tap/macicon"
       "mas"
       "blueutil"
     ];
@@ -33,8 +30,6 @@
       "hiddenbar"
       "obsidian"
       "orbstack"
-      "postman"
-      "postman-agent"
       "raycast"
       "readdle-spark"
       "spotify"
