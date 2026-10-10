@@ -21,7 +21,7 @@ WHITE='\033[0;36m'
 CEND='\033[0m' # No color (default text color)
 
 # Vars
-EDITOR="nano"
+EDITOR="nvim"
 
 # ZSH Settings
 # ZSH_THEME="powerlevel10k/powerlevel10k"
