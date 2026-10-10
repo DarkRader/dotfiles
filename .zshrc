@@ -37,8 +37,6 @@ fi
 
 echo
 
-[[ -f ~/.zsh/starship.zsh ]] && source ~/.zsh/starship.zsh
-
 # ALIASES
 [[ -f ~/.zsh/aliases.zsh ]] && source ~/.zsh/aliases.zsh
 [[ -f ~/.zsh/darwin-switch.zsh ]] && source ~/.zsh/darwin-switch.zsh
