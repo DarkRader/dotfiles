@@ -1,31 +1,23 @@
 # DarkRader Dotfiles
 
 This repository is the source of truth for macOS shell, terminal, editor, and
-application configuration. It uses [GNU Stow](https://www.gnu.org/software/stow/)
-to expose the files in this repository through symlinks in `$HOME`.
+application configuration. It uses [mise](https://mise.jdx.dev/) to expose the
+files in this repository through declarative symlinks in `$HOME`.
 
 ## How It Works
 
 - Git tracks the real configuration files in this repository.
-- GNU Stow creates symlinks in your home directory that point back here.
+- `mise` creates declarative symlinks in your home directory pointing back here.
 - Edit a tracked file in this repository; the linked application sees the
   change immediately.
-- Do not commit symlinks from your home directory. The symlinks are generated
-  by Stow and belong outside the repository.
+- Do not commit symlinks from your home directory. Symlinks are generated
+  by `mise` and belong outside the repository.
 
-The top-level package is intentionally used for the initial setup. It manages
-directories such as `.config`, `.gemini`, `.warp`, and `.zsh`, plus root-level
-files such as `.zshrc`. `brewfiles/`, `nix/`, and `raycast/` remain versioned in
-Git but are intentionally excluded from Stow: Nix and Homebrew are run
-separately and Raycast is imported through its application UI. Depending on
-whether a target directory already exists, Stow may create one directory symlink
-or individual file symlinks inside that directory; both point back to the same
-tracked source files.
-
-If individual file symlinks are required for a package, use Stow's
-`--no-folding` option, for example `stow -Rv --no-folding .config`. This is
-optional; the default directory folding is safe and keeps the home directory
-tidy.
+Managed configurations include `.config/` (GitHub CLI, OpenLogi, Starship, Zed),
+`.warp/` settings and themes, `.zsh/`, and root-level files such as `.zshrc`.
+`brewfiles/`, `nix/`, and `raycast/` remain versioned in Git but are intentionally
+excluded from `mise.toml`: Nix and Homebrew are run separately, and Raycast is
+imported through its application UI.
 
 ## First Setup On A New Mac
 
@@ -47,34 +39,36 @@ nix run nix-darwin/master#darwin-rebuild -- switch --flake ~/dotfiles/nix#macboo
 # or for work:
 # nix run nix-darwin/master#darwin-rebuild -- switch --flake ~/dotfiles/nix#macbook-work
 
-# 5. Link dotfiles with Stow
-stow -Rv .
+# 5. Link dotfiles with mise
+mise dot apply
 ```
 
 See [nix/README.md](nix/README.md) for full documentation, profile differences, and daily commands.
 
-If Stow reports a conflict, inspect the existing file first. Move or remove an
-old, unmanaged configuration only after deciding whether it should be kept;
-Stow will not overwrite it automatically.
+If `mise dot apply` reports a conflict, inspect the existing file first. Move or remove an
+old, unmanaged configuration only after deciding whether it should be kept.
 
-After setup, verify a link points into this repository. Depending on Stow's
-directory-folding decision, inspect either the package directory or a file
-inside it:
+After setup, verify links with `mise dot status`:
+
+```bash
+mise dot status
+```
+
+Or inspect individual symlinks:
 
 ```bash
 ls -l ~/.zshrc
 readlink ~/.zshrc
-ls -ld ~/.config ~/.config/starship.toml
-readlink ~/.config
+ls -ld ~/.config/starship.toml
 readlink ~/.config/starship.toml
 ```
 
-At least the inspected path should resolve into `~/dotfiles`. Start a new
-shell after linking `.zshrc` so the shell loads the managed configuration.
+Inspected paths should resolve into `~/dotfiles`. Start a new shell after linking
+`.zshrc` so the shell loads the managed configuration.
 
 ## Updating Existing Configuration
 
-Edit the source file under `~/dotfiles`. No Stow command is needed when the
+Edit the source file under `~/dotfiles`. No `mise` command is needed when the
 symlink already exists:
 
 ```bash
@@ -82,57 +76,59 @@ $EDITOR ~/dotfiles/.zshrc
 $EDITOR ~/dotfiles/.config/starship.toml
 ```
 
-If a directory or file was added, moved, or renamed, restow the package:
+If a new file was mapped in `mise.toml`, apply the updates:
 
 ```bash
 cd ~/dotfiles
-stow -Rv .
+mise dot apply
 ```
 
-Use `stow -Dv .` to remove this package's symlinks from `$HOME`. This does not
+Use `mise dot unapply` to remove managed symlinks from `$HOME`. This does not
 delete the source files in the repository.
 
 ## Adding A New Managed File
 
-1. Put the file in the matching package in this repository, preserving the
-   path it should have under `$HOME`.
-2. Preview the change with `stow -nRv .`.
-3. Restow with `stow -Rv .`.
-4. Confirm the home-directory path is a symlink to the repository.
-5. Review and commit the source file with Git.
+You can add a new configuration file in two ways:
 
-For example, to manage `~/.config/example/settings.toml`:
+### Option A: Using the CLI (Recommended)
+
+From within `~/dotfiles`, run:
 
 ```bash
-mkdir -p ~/dotfiles/.config/example
-$EDITOR ~/dotfiles/.config/example/settings.toml
-cd ~/dotfiles
-stow -nRv .
-stow -Rv .
-ls -l ~/.config/example/settings.toml
-git add .config/example/settings.toml
+mise dot add -l ~/.config/example/settings.toml
+# or via mise task:
+mise run dot:add ~/.config/example/settings.toml
 ```
 
-If the target already exists as a regular file, back it up or merge its
-contents before running Stow. Never copy a generated home-directory symlink
-back into the repository as a new tracked file.
+This moves the file into `~/dotfiles/.config/example/settings.toml`, maps it in
+`mise.toml`, and creates the symlink back to `$HOME`.
+
+### Option B: Manual Mapping
+
+1. Put the file in this repository, preserving the path it should have under `$HOME`.
+2. Add the path under `[dotfiles]` in `mise.toml`:
+   ```toml
+   "~/.config/example/settings.toml" = {}
+   ```
+3. Preview the change with `mise dot diff`.
+4. Apply with `mise dot apply`.
+5. Review and commit the source file with Git.
 
 ## Packages And Layout
 
 | Path | Purpose |
 | --- | --- |
-| `.config/` | XDG application configuration |
-| `.gemini/` | Gemini CLI configuration |
+| `.config/` | Application configurations (GitHub CLI, OpenLogi, Starship, Zed) |
 | `.warp/` | Warp terminal settings and themes |
-| `.zsh/` and `.zshrc` | Shell configuration |
+| `.zsh/` and `.zshrc` | Shell configuration and entrypoint |
+| `mise.toml` | Declarative dotfile mappings and repository tasks |
 | `brewfiles/` | Homebrew manifests and instructions; applied manually |
-| `nix/` | nix-darwin and Nix flake system configuration; not Stow-managed |
-| `raycast/` | Raycast import source; not Stow-managed |
+| `nix/` | nix-darwin and Nix flake system configuration; not mise-managed |
+| `raycast/` | Raycast import source; not mise-managed |
 
-The root `.stowrc` excludes repository metadata and documentation from Stow.
-Files such as `.DS_Store`, editor metadata, credentials, and other machine-
-local artifacts should not be added to the repository. Extend `.gitignore` and
-`.stowrc` when a new non-configuration file should be ignored by Git or Stow.
+Files such as `.DS_Store`, credentials, and machine-local state should not be added
+to the repository. Extend `.gitignore` when a new non-configuration file should be
+ignored by Git.
 
 Nix and Homebrew configurations are documented separately in
 [nix/README.md](nix/README.md) and [brewfiles/README.md](brewfiles/README.md).

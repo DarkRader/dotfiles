@@ -7,7 +7,6 @@
     # Core CLI and repository tools
     pkgs.git
     pkgs.gh
-    pkgs.stow
 
     # Shell and terminal
     pkgs.oh-my-zsh

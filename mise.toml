@@ -1,0 +1,34 @@
+[settings.dotfiles]
+root = "."
+
+[dotfiles]
+"~/.config/gh/config.yml" = {}
+"~/.config/gh/hosts.yml" = {}
+"~/.config/openlogi/config.toml" = {}
+"~/.config/starship.toml" = {}
+"~/.config/zed/settings.json" = {}
+
+"~/.warp/settings.toml" = {}
+"~/.warp/themes" = {}
+"~/.zsh" = {}
+"~/.zshrc" = {}
+
+[tasks."dot:apply"]
+description = "Apply dotfile symlinks into home directory"
+run = "mise dot apply"
+
+[tasks."dot:diff"]
+description = "Preview dotfile changes without writing"
+run = "mise dot diff"
+
+[tasks."dot:status"]
+description = "Show status of managed dotfiles"
+run = "mise dot status"
+
+[tasks."dot:add"]
+description = "Add and symlink a new dotfile into this repository"
+run = "mise dot add -l"
+
+[tasks."dot:unapply"]
+description = "Remove dotfile symlinks from home directory"
+run = "mise dot unapply"
