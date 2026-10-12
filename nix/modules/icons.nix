@@ -8,6 +8,10 @@
         icon = getIcon "safari";
       }
       {
+        path = "/Applications/Helium.app";
+        icon = getIcon "heliumbrowser";
+      }
+      {
         path = "/Applications/Spark Desktop.app";
         icon = getIcon "spark";
       }
