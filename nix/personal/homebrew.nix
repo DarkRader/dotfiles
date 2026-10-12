@@ -8,6 +8,7 @@
     ];
     casks = [
       "iina"
+      "rancher"
     ];
     masApps = {
       # "Pages" = 361309726;

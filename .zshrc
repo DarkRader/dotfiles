@@ -51,3 +51,7 @@ eval "$(starship init zsh)"
 export PATH="$HOME/.local/python-3.13.3-tk/bin:$PATH"
 
 export PATH="$HOME/.local/bin:$PATH"
+
+### MANAGED BY RANCHER DESKTOP START (DO NOT EDIT)
+export PATH="/Users/Artyom_1/.rd/bin:$PATH"
+### MANAGED BY RANCHER DESKTOP END (DO NOT EDIT)
