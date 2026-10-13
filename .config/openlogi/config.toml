@@ -77,6 +77,7 @@ fn_lock = true
 dpi = 1000
 invert_scroll = true
 scroll_resolution = "high"
+thumbwheel_sensitivity = 7
 
 [devices."unit:60d1149a".identity]
 display_name = "MX Master 3"
