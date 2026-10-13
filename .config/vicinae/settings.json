@@ -26,6 +26,97 @@
       "material": "liquid_glass"
    },
    "providers": {
+      "@VladCuciureanu/store.raycast.toothpick": {
+         "enabled": false,
+         "preferences": {
+            "fuzzyRatio": "98",
+            "bluetoothBackend": "blueutil",
+            "favoriteDevice1": "DarkPods Pro",
+            "favoriteDevice2": "Logi Z407"
+         },
+         "entrypoints": {
+            "connect-favorite-device-1": {
+               "enabled": true,
+               "shortcut": "super+control+alt+1"
+            },
+            "connect-favorite-device-2": {
+               "enabled": true,
+               "shortcut": "super+control+alt+2"
+            },
+            "connect-favorite-device-3": {
+               "enabled": true,
+               "shortcut": "super+control+alt+3"
+            },
+            "disconnect-favorite-device-1": {
+               "enabled": true,
+               "shortcut": "super+control+alt+4"
+            },
+            "disconnect-favorite-device-2": {
+               "enabled": true,
+               "shortcut": "super+control+alt+5"
+            },
+            "disconnect-favorite-device-3": {
+               "enabled": true,
+               "shortcut": "super+control+alt+6"
+            },
+            "manage-bluetooth-connections": {
+               "alias": "blu"
+            },
+            "toggle-favorite-device-1": {
+               "enabled": true,
+               "shortcut": "super+control+alt+A"
+            }
+         }
+      },
+      "@appest/store.raycast.ticktick": {
+         "enabled": true,
+         "preferences": {
+            "defaultTitle": "none",
+            "defaultDate": "none"
+         },
+         "entrypoints": {
+            "create": {
+               "shortcut": "super+alt+shift+A"
+            },
+            "inbox": {
+               "shortcut": "super+alt+shift+I"
+            },
+            "index": {
+               "shortcut": "super+alt+shift+T"
+            },
+            "next7Days": {
+               "shortcut": "super+alt+shift+7"
+            },
+            "quickAdd": {
+               "shortcut": "super+alt+shift+Q"
+            },
+            "search": {
+               "shortcut": "super+alt+shift+S"
+            }
+         }
+      },
+      "@benvp/store.raycast.audio-device": {
+         "entrypoints": {
+            "auto-switch-input": {
+               "enabled": false
+            },
+            "auto-switch-output": {
+               "enabled": false
+            },
+            "set-input-device": {
+               "alias": "in"
+            },
+            "set-input-volume": {
+               "enabled": false
+            },
+            "set-output-device": {
+               "alias": "out"
+            },
+            "set-volume": {
+               "enabled": false
+            }
+         }
+      },
       "@mattisssa/store.raycast.spotify-player": {
          "entrypoints": {
             "devices": {
@@ -74,6 +165,33 @@
             "yourLibrary": {
                "enabled": true,
                "shortcut": "super+control+."
+            }
+         }
+      },
+      "@philip_chen/store.raycast.sidecar": {
+         "preferences": {
+            "ipadName": "iPad (Rader)"
+         },
+         "entrypoints": {
+            "connect-sidecar": {
+               "shortcut": "control+shift+I"
+            }
+         }
+      },
+      "@vimtor/store.raycast.video-downloader": {
+         "preferences": {
+            "downloadPath": "/Users/Artyom_1/Downloads Video",
+            "homebrewPath": "/opt/homebrew/bin/brew",
+            "autoLoadUrlFromClipboard": false,
+            "autoLoadUrlFromSelectedText": false,
+            "enableBrowserExtensionSupport": false,
+            "forceIpv4": false,
+            "cookiesFromBrowser": "none",
+            "fastRemux": true
+         },
+         "entrypoints": {
+            "index": {
+               "alias": "youdl"
             }
          }
       },
