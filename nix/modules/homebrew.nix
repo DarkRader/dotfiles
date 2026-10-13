@@ -40,6 +40,7 @@
       "ticktick"
       "openlogi"
       "monitorcontrol"
+      "helium-browser"
       # "the-unarchiver"
       # "sf-symbols"
     ];

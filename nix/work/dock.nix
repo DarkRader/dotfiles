@@ -1,7 +1,7 @@
-{ userApp, ... }:
+{ ... }:
 {
   system.defaults.dock.persistent-apps = [
-    (userApp "Safari")
+    "/Applications/Helium.app"
     "/Applications/Spark Desktop.app"
     "/Applications/Obsidian.app"
     "/Applications/Notion.app"

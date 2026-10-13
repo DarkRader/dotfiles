@@ -9,7 +9,6 @@
     casks = [
       "iina"
       "rancher"
-      "helium-browser"
     ];
     masApps = {
       # "Pages" = 361309726;
