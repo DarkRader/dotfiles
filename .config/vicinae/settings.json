@@ -1,0 +1,90 @@
+// This configuration is merged with the default vicinae configuration file, which you can obtain by running the `vicinae config default` command.
+// Every item defined in this file takes precedence over the values defined in the default config or any other imported file.
+//
+// You can make manual edits to this file, however you should keep in mind that this file may be written to by vicinae when a configuration change is made through the GUI.
+// When that happens, any custom comments or formatting will be lost.
+//
+// If you want to maintain a configuration file with your own comments and formatting, you should create a separate file and add it to the 'imports' array.
+//
+// Learn more about configuration at https://docs.vicinae.com/config
+
+{
+   "$schema": "https://vicinae.com/schemas/config.json",
+   "font": {
+      "normal": {
+         "family": "JetBrainsMono Nerd Font",
+         "size": 13
+      }
+   },
+   "theme": {
+      "dark": {
+         "name": "one-dark"
+      }
+   },
+   "launcher_window": {
+      "opacity": 0.3,
+      "material": "liquid_glass"
+   },
+   "providers": {
+      "@mattisssa/store.raycast.spotify-player": {
+         "entrypoints": {
+            "devices": {
+               "enabled": true,
+               "shortcut": "super+control+A"
+            },
+            "findLyrics": {
+               "enabled": true,
+               "shortcut": "super+control+F"
+            },
+            "generatePlaylist": {
+               "enabled": false
+            },
+            "like": {
+               "enabled": true,
+               "shortcut": "super+control+L"
+            },
+            "next": {
+               "enabled": true,
+               "shortcut": "control+ARROWRIGHT"
+            },
+            "nowPlaying": {
+               "enabled": true,
+               "shortcut": "super+control+N"
+            },
+            "previous": {
+               "enabled": true,
+               "shortcut": "control+ARROWLEFT"
+            },
+            "queue": {
+               "enabled": true,
+               "shortcut": "super+control+/"
+            },
+            "search": {
+               "enabled": true,
+               "shortcut": "super+control+S"
+            },
+            "togglePlayPause": {
+               "enabled": true,
+               "shortcut": "super+control+RETURN"
+            },
+            "volume": {
+               "enabled": true,
+               "shortcut": "super+control+="
+            },
+            "yourLibrary": {
+               "enabled": true,
+               "shortcut": "super+control+."
+            }
+         }
+      },
+      "raycast-compat": {
+         "entrypoints": {
+            "store": {
+               "preferences": {
+                  "alwaysShowIntro": true
+               }
+            }
+         }
+      }
+   }
+}

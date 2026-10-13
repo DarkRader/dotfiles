@@ -41,6 +41,7 @@
       "openlogi"
       "monitorcontrol"
       "helium-browser"
+      "vicinae"
       # "the-unarchiver"
       # "sf-symbols"
     ];
