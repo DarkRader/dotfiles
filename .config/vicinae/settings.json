@@ -10,6 +10,9 @@
 
 {
    "$schema": "https://vicinae.com/schemas/config.json",
+   "global_shortcuts": {
+      "toggle": "control+SPACE"
+   },
    "font": {
       "normal": {
          "family": "JetBrainsMono Nerd Font",
@@ -18,7 +21,7 @@
    },
    "theme": {
       "dark": {
-         "name": "one-dark"
+         "name": "dracula"
       }
    },
    "launcher_window": {
@@ -104,16 +107,60 @@
                "enabled": false
             },
             "set-input-device": {
-               "alias": "in"
+               "alias": "in",
+               "shortcut": "control+alt+shift+I"
             },
             "set-input-volume": {
                "enabled": false
             },
             "set-output-device": {
-               "alias": "out"
+               "alias": "out",
+               "shortcut": "control+alt+shift+O"
             },
             "set-volume": {
                "enabled": false
+            }
+         }
+      },
+      "@g0d/store.raycast.time": {
+         "entrypoints": {
+            "index": {
+               "alias": "time"
+            }
+         }
+      },
+      "@marcjulian/store.raycast.obsidian": {
+         "preferences": {
+            "configFileName": ".obsidian"
+         },
+         "entrypoints": {
+            "createNoteCommand": {
+               "alias": "crnote",
+               "preferences": {
+                  "blankNote": false,
+                  "focusContentArea": true,
+                  "openOnCreate": false,
+                  "prefPath": "0.Inbox",
+                  "prefNoteName": "Untitled",
+                  "prefNoteContent": "",
+                  "fillFormWithDefaults": false,
+                  "prefTag": "",
+                  "tags": "",
+                  "folderActions": ""
+               }
+            },
+            "searchNoteCommand": {
+               "shortcut": "control+shift+O",
+               "preferences": {
+                  "showDetail": true,
+                  "showMetadata": false,
+                  "searchContent": false,
+                  "fuzzySearch": false,
+                  "primaryAction": "quicklook"
+               }
+            },
+            "starredNotesCommand": {
+               "shortcut": "control+shift+B"
             }
          }
       },
@@ -136,7 +183,7 @@
             },
             "next": {
                "enabled": true,
-               "shortcut": "control+ARROWRIGHT"
+               "shortcut": "super+control+ARROWRIGHT"
             },
             "nowPlaying": {
                "enabled": true,
@@ -144,7 +191,7 @@
             },
             "previous": {
                "enabled": true,
-               "shortcut": "control+ARROWLEFT"
+               "shortcut": "super+control+ARROWLEFT"
             },
             "queue": {
                "enabled": true,
@@ -192,6 +239,46 @@
          "entrypoints": {
             "index": {
                "alias": "youdl"
+            }
+         }
+      },
+      "applications": {
+         "entrypoints": {
+            "com.TickTick.task.mac": {
+               "shortcut": "alt+P"
+            },
+            "com.apple.Passwords": {
+               "alias": "pass"
+            },
+            "com.cron.electron": {
+               "shortcut": "alt+C"
+            },
+            "com.google.GeminiMacOS": {
+               "shortcut": "alt+G"
+            },
+            "com.hnc.Discord": {
+               "shortcut": "alt+D"
+            },
+            "com.readdle.SparkDesktop": {
+               "shortcut": "alt+S"
+            },
+            "com.spotify.client": {
+               "shortcut": "alt+M"
+            },
+            "dev.warp.Warp-Stable": {
+               "shortcut": "alt+W"
+            },
+            "dev.zed.Zed": {
+               "shortcut": "alt+Z"
+            },
+            "md.obsidian": {
+               "shortcut": "alt+O"
+            },
+            "net.imput.helium": {
+               "shortcut": "alt+B"
+            },
+            "ru.keepcoder.Telegram": {
+               "shortcut": "alt+T"
             }
          }
       },
