@@ -16,8 +16,9 @@ files in this repository through declarative symlinks in `$HOME`.
 Managed configurations include `.config/` (GitHub CLI, OpenLogi, Starship, Zed),
 `.warp/` settings and themes, `.zsh/`, and root-level files such as `.zshrc`.
 `brewfiles/`, `nix/`, and `raycast/` remain versioned in Git but are intentionally
-excluded from `mise.toml`: Nix and Homebrew are run separately, and Raycast is
-imported through its application UI.
+excluded from `[dotfiles]` in `mise.toml`: Nix is managed declaratively via
+nix-darwin and repository `mise` tasks, Homebrew is declarative via
+nix-homebrew, and Raycast is imported through its application UI.
 
 ## First Setup On A New Mac
 
@@ -114,6 +115,41 @@ This moves the file into `~/dotfiles/.config/example/settings.toml`, maps it in
 4. Apply with `mise dot apply`.
 5. Review and commit the source file with Git.
 
+## Repository Tasks (Mise)
+
+The repository provides task suites configured in `mise.toml`. Inspect available tasks with `mise tasks`:
+
+### Dotfiles Management
+
+| Command | Purpose |
+| --- | --- |
+| `mise dot apply` / `mise run dot:apply` | Apply dotfile symlinks into `$HOME` |
+| `mise dot diff` / `mise run dot:diff` | Preview dotfile changes (dry run) |
+| `mise dot status` / `mise run dot:status` | Show status of managed dotfiles |
+| `mise dot add -l <path>` / `mise run dot:add <path>` | Add and symlink a new dotfile into this repo |
+| `mise dot unapply` / `mise run dot:unapply` | Remove managed symlinks from `$HOME` |
+
+### Nix-Darwin & Flake Management
+
+| Command | Purpose |
+| --- | --- |
+| `mise run nix:personal` *(alias: `darwin:personal`)* | Rebuild and apply personal macOS configuration |
+| `mise run nix:work` *(alias: `darwin:work`)* | Rebuild and apply work macOS configuration |
+| `mise run nix:check` *(alias: `darwin:check`)* | Verify flake evaluation without activating changes |
+| `mise run nix:build` | Build personal system configuration without activating |
+| `mise run nix:update` | Update `flake.lock` dependencies |
+| `mise run nix:gc` | Clean up old generations and garbage collect Nix store |
+
+### Custom Icons (`macicon`)
+
+| Command | Purpose |
+| --- | --- |
+| `mise run icon` | Run the `macicon` CLI |
+| `mise run icon:sync` | Regenerate missing icons across themes in `themes.json` |
+| `mise run icon:all` | Generate an icon across all registered themes |
+| `mise run icon:create-theme` | Batch generate existing icons into a new theme folder |
+| `mise run icon:preview` | Generate an icon with a 1024x1024 PNG preview |
+
 ## Packages And Layout
 
 | Path | Purpose |
@@ -121,9 +157,9 @@ This moves the file into `~/dotfiles/.config/example/settings.toml`, maps it in
 | `.config/` | Application configurations (GitHub CLI, OpenLogi, Starship, Zed) |
 | `.warp/` | Warp terminal settings and themes |
 | `.zsh/` and `.zshrc` | Shell configuration and entrypoint |
-| `mise.toml` | Declarative dotfile mappings and repository tasks |
-| `brewfiles/` | Homebrew manifests and instructions; applied manually |
-| `nix/` | nix-darwin and Nix flake system configuration; not mise-managed |
+| `mise.toml` | Declarative dotfile mappings, tool definitions, and repository tasks |
+| `brewfiles/` | Homebrew manifests and instructions; applied manually or via nix-homebrew |
+| `nix/` | nix-darwin and Nix flake system configuration; operated via `mise run nix:*` |
 | `raycast/` | Raycast import source; not mise-managed |
 
 Files such as `.DS_Store`, credentials, and machine-local state should not be added

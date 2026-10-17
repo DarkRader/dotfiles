@@ -13,15 +13,16 @@ home directory; generated home-directory links must not be committed here.
 
 - `.config/`, `.warp/`, `.zsh/`: configuration packages.
 - `.zshrc`: root-level shell entrypoint.
-- `mise.toml`: declarative dotfile mappings and repository tasks.
+- `mise.toml`: declarative dotfile mappings, tool definitions, and repository tasks.
 - `brewfiles/`: shared, personal, and work Homebrew manifests; applied
-  manually, not mise-managed.
-- `nix/`: nix-darwin and Nix flake configuration; not mise-managed.
+  manually or via nix-homebrew, not `[dotfiles]`-managed.
+- `nix/`: nix-darwin and Nix flake configuration; operated via repository
+  `mise` tasks (`nix:*`), excluded from `[dotfiles]` symlinks.
 - `raycast/`: Raycast import source; not mise-managed.
 - `.gitignore`: files excluded from Git.
 
-`brewfiles/`, `nix/`, and `raycast/` are intentionally excluded from `mise.toml` even though
-their source files remain tracked by Git.
+`brewfiles/`, `nix/`, and `raycast/` are intentionally excluded from `[dotfiles]` in `mise.toml`
+even though their source files remain tracked by Git.
 
 ## Setup And Verification
 
@@ -35,6 +36,14 @@ mise dot status  # inspect status of managed links
 
 Use `mise dot unapply` to remove links without deleting repository files. Verify
 links with `ls -l <home-path>` and `readlink <home-path>`.
+
+### Repository Tasks
+
+Task suites are configured in `mise.toml` (`mise tasks`):
+
+- **Dotfiles**: `mise run dot:apply`, `dot:diff`, `dot:status`, `dot:add <path>`, `dot:unapply`
+- **Nix-Darwin**: `mise run nix:personal` (alias `darwin:personal`), `nix:work` (alias `darwin:work`), `nix:check` (alias `darwin:check`), `nix:build`, `nix:update`, `nix:gc`
+- **Icons (`macicon`)**: `mise run icon`, `icon:sync`, `icon:all`, `icon:create-theme`, `icon:preview`
 
 Before claiming a documentation or configuration change is complete:
 

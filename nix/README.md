@@ -49,26 +49,35 @@ nix run nix-darwin/master#darwin-rebuild -- switch --flake ~/dotfiles/nix#macboo
 
 ## Daily Workflow & Commands
 
-Once nix-darwin is activated, `darwin-rebuild` is available directly in your shell:
+You can run workflows using `mise` tasks from anywhere in `~/dotfiles`, use the `darwin-switch` shell helper, or execute `darwin-rebuild` directly:
 
 ### Applying Changes
 
 After modifying any `.nix` files:
 
 ```bash
-# Personal profile
-darwin-rebuild switch --flake ~/dotfiles/nix#macbook-personal
+# Personal profile (via mise, shell helper, or direct command)
+mise run nix:personal
+# or: darwin-switch personal
+# or: sudo -H darwin-rebuild switch --flake ~/dotfiles/nix#macbook-personal
 
-# Work profile
-darwin-rebuild switch --flake ~/dotfiles/nix#macbook-work
+# Work profile (via mise, shell helper, or direct command)
+mise run nix:work
+# or: darwin-switch work
+# or: sudo -H darwin-rebuild switch --flake ~/dotfiles/nix#macbook-work
 ```
 
 ### Checking Configuration
 
-Verify flake evaluation and build without activating changes:
+Verify flake evaluation and module definitions without activating changes:
 
 ```bash
-darwin-rebuild check --flake ~/dotfiles/nix#macbook-personal
+mise run nix:check
+# or: nix flake check ~/dotfiles/nix
+
+# To build the system derivation without activating:
+mise run nix:build
+# or: darwin-rebuild build --flake ~/dotfiles/nix#macbook-personal
 ```
 
 ### Updating Flake Dependencies
@@ -76,9 +85,8 @@ darwin-rebuild check --flake ~/dotfiles/nix#macbook-personal
 Update input locks in `flake.lock` (`nixpkgs`, `nix-darwin`, `nix-homebrew`):
 
 ```bash
-cd ~/dotfiles/nix
-nix flake update
-darwin-rebuild switch --flake ~/dotfiles/nix#macbook-personal
+mise run nix:update
+# or: nix flake update --flake ~/dotfiles/nix
 ```
 
 ### Garbage Collection
@@ -86,7 +94,8 @@ darwin-rebuild switch --flake ~/dotfiles/nix#macbook-personal
 Clean up old generations and unused Nix store paths:
 
 ```bash
-nix-collect-garbage -d
+mise run nix:gc
+# or: nix-collect-garbage -d
 ```
 
 ---
