@@ -1,6 +1,10 @@
 # MacOS files
 .DS_Store
 
+# Nix
+result
+result-*
+
 # Python
 __pycache__/
 *.py[cod]

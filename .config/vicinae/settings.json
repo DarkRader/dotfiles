@@ -282,6 +282,13 @@
             }
          }
       },
+      "core": {
+         "entrypoints": {
+            "search-emojis": {
+               "shortcut": "super+control+alt+E"
+            }
+         }
+      },
       "raycast-compat": {
          "entrypoints": {
             "store": {

@@ -58,3 +58,31 @@ run = "macicon --create-theme"
 [tasks."icon:preview"]
 description = "Generate an icon with a 1024x1024 PNG preview"
 run = "macicon --preview"
+
+# Nix Tasks
+[tasks."nix:personal"]
+description = "Rebuild and apply personal macOS configuration"
+run = "sudo -H darwin-rebuild switch --flake ./nix#macbook-personal"
+alias = "darwin:personal"
+
+[tasks."nix:work"]
+description = "Rebuild and apply work macOS configuration"
+run = "sudo -H darwin-rebuild switch --flake ./nix#macbook-work"
+alias = "darwin:work"
+
+[tasks."nix:check"]
+description = "Verify flake evaluation across configurations"
+run = "nix flake check ./nix"
+alias = "darwin:check"
+
+[tasks."nix:build"]
+description = "Build personal configuration without activating"
+run = "darwin-rebuild build --flake ./nix#macbook-personal"
+
+[tasks."nix:update"]
+description = "Update nix flake lockfile dependencies"
+run = "nix flake update --flake ./nix"
+
+[tasks."nix:gc"]
+description = "Clean up old generations and garbage collect nix store"
+run = "nix-collect-garbage -d"
