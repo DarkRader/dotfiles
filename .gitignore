@@ -8,3 +8,13 @@ result-*
 # Python
 __pycache__/
 *.py[cod]
+
+# Lockfiles (preserve Nix flake.lock)
+*.lock
+!flake.lock
+
+# Temporary and backup files
+*.swp
+*~
+*.bak
+*backup.json

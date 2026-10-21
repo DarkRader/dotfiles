@@ -15,10 +15,10 @@ files in this repository through declarative symlinks in `$HOME`.
 
 Managed configurations include `.config/` (GitHub CLI, OpenLogi, Starship, Zed),
 `.warp/` settings and themes, `.zsh/`, and root-level files such as `.zshrc`.
-`brewfiles/`, `nix/`, and `raycast/` remain versioned in Git but are intentionally
+`nix/` and `raycast/` remain versioned in Git but are intentionally
 excluded from `[dotfiles]` in `mise.toml`: Nix is managed declaratively via
-nix-darwin and repository `mise` tasks, Homebrew is declarative via
-nix-homebrew, and Raycast is imported through its application UI.
+nix-darwin and repository `mise` tasks (including Homebrew via nix-homebrew),
+and Raycast is imported through its application UI.
 
 ## First Setup On A New Mac
 
@@ -158,13 +158,12 @@ The repository provides task suites configured in `mise.toml`. Inspect available
 | `.warp/` | Warp terminal settings and themes |
 | `.zsh/` and `.zshrc` | Shell configuration and entrypoint |
 | `mise.toml` | Declarative dotfile mappings, tool definitions, and repository tasks |
-| `brewfiles/` | Homebrew manifests and instructions; applied manually or via nix-homebrew |
-| `nix/` | nix-darwin and Nix flake system configuration; operated via `mise run nix:*` |
+| `nix/` | nix-darwin and Nix flake system configuration (including Homebrew); operated via `mise run nix:*` |
 | `raycast/` | Raycast import source; not mise-managed |
 
 Files such as `.DS_Store`, credentials, and machine-local state should not be added
 to the repository. Extend `.gitignore` when a new non-configuration file should be
 ignored by Git.
 
-Nix and Homebrew configurations are documented separately in
-[nix/README.md](nix/README.md) and [brewfiles/README.md](brewfiles/README.md).
+Nix-Darwin and Homebrew configurations are documented in
+[nix/README.md](nix/README.md).

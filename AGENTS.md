@@ -14,14 +14,13 @@ home directory; generated home-directory links must not be committed here.
 - `.config/`, `.warp/`, `.zsh/`: configuration packages.
 - `.zshrc`: root-level shell entrypoint.
 - `mise.toml`: declarative dotfile mappings, tool definitions, and repository tasks.
-- `brewfiles/`: shared, personal, and work Homebrew manifests; applied
-  manually or via nix-homebrew, not `[dotfiles]`-managed.
-- `nix/`: nix-darwin and Nix flake configuration; operated via repository
-  `mise` tasks (`nix:*`), excluded from `[dotfiles]` symlinks.
+- `nix/`: nix-darwin and Nix flake configuration (including declarative
+  Homebrew via nix-homebrew); operated via repository `mise` tasks (`nix:*`),
+  excluded from `[dotfiles]` symlinks.
 - `raycast/`: Raycast import source; not mise-managed.
 - `.gitignore`: files excluded from Git.
 
-`brewfiles/`, `nix/`, and `raycast/` are intentionally excluded from `[dotfiles]` in `mise.toml`
+`nix/` and `raycast/` are intentionally excluded from `[dotfiles]` in `mise.toml`
 even though their source files remain tracked by Git.
 
 ## Setup And Verification
@@ -90,7 +89,7 @@ types communicate semantic-versioning intent:
 ```
 
 Use a relevant type such as `feat`, `fix`, `docs`, `chore`, `refactor`, or
-`test`, and keep the scope specific, such as `mise`, `nix`, `brewfiles`, `raycast`,
+`test`, and keep the scope specific, such as `mise`, `nix`, `raycast`,
 or `docs`. Mark breaking changes with `!` after the type or scope and explain
 the impact in the commit body or footer.
 
