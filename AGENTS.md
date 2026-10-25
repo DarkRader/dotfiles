@@ -40,14 +40,15 @@ links with `ls -l <home-path>` and `readlink <home-path>`.
 
 Task suites are configured in `mise.toml` (`mise tasks`):
 
-- **Dotfiles**: `mise run dot:apply`, `dot:diff`, `dot:status`, `dot:add <path>`, `dot:unapply`
-- **Nix-Darwin**: `mise run nix:personal` (alias `darwin:personal`), `nix:work` (alias `darwin:work`), `nix:check` (alias `darwin:check`), `nix:build`, `nix:update`, `nix:gc`
-- **Icons (`macicon`)**: `mise run icon`, `icon:sync`, `icon:all`, `icon:create-theme`, `icon:preview`
+- **Verification**: `mise check` (runs `dot:diff`, `nix:check`, and `git diff --check` in one step)
+- **Dotfiles**: `mise dot:apply`, `mise dot:diff`, `mise dot:status`, `mise dot:add <path>`, `mise dot:unapply`
+- **Nix-Darwin**: `mise nix:personal` (alias `darwin:personal`), `mise nix:work` (alias `darwin:work`), `mise nix:check` (alias `darwin:check`), `mise nix:build`, `mise nix:update`, `mise nix:gc`
+- **Icons (`macicon`)**: `mise icon`, `mise icon:sync`, `mise icon:all`, `mise icon:create-theme`, `mise icon:preview`
 
 Before claiming a documentation or configuration change is complete:
 
 ```bash
-git diff --check
+mise check
 git status --short
 ```
 

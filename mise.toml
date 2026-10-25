@@ -18,6 +18,11 @@ root = "~/dotfiles"
 "~/.zshrc" = {}
 
 # Dotfiles Tasks
+[tasks.check]
+description = "Run all repository health checks (dotfiles symlinks, nix flake, git diff)"
+depends = ["dot:diff", "nix:check"]
+run = "git diff --check"
+
 [tasks."dot:apply"]
 description = "Apply dotfile symlinks into home directory"
 run = "mise dot apply"

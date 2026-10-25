@@ -57,12 +57,12 @@ After modifying any `.nix` files:
 
 ```bash
 # Personal profile (via mise, shell helper, or direct command)
-mise run nix:personal
+mise nix:personal
 # or: darwin-switch personal
 # or: sudo -H darwin-rebuild switch --flake ~/dotfiles/nix#macbook-personal
 
 # Work profile (via mise, shell helper, or direct command)
-mise run nix:work
+mise nix:work
 # or: darwin-switch work
 # or: sudo -H darwin-rebuild switch --flake ~/dotfiles/nix#macbook-work
 ```
@@ -72,11 +72,11 @@ mise run nix:work
 Verify flake evaluation and module definitions without activating changes:
 
 ```bash
-mise run nix:check
+mise nix:check
 # or: nix flake check ~/dotfiles/nix
 
 # To build the system derivation without activating:
-mise run nix:build
+mise nix:build
 # or: darwin-rebuild build --flake ~/dotfiles/nix#macbook-personal
 ```
 
@@ -85,7 +85,7 @@ mise run nix:build
 Update input locks in `flake.lock` (`nixpkgs`, `nix-darwin`, `nix-homebrew`):
 
 ```bash
-mise run nix:update
+mise nix:update
 # or: nix flake update --flake ~/dotfiles/nix
 ```
 
@@ -94,7 +94,7 @@ mise run nix:update
 Clean up old generations and unused Nix store paths:
 
 ```bash
-mise run nix:gc
+mise nix:gc
 # or: nix-collect-garbage -d
 ```
 

@@ -98,7 +98,7 @@ From within `~/dotfiles`, run:
 ```bash
 mise dot add -l ~/.config/example/settings.toml
 # or via mise task:
-mise run dot:add ~/.config/example/settings.toml
+mise dot:add ~/.config/example/settings.toml
 ```
 
 This moves the file into `~/dotfiles/.config/example/settings.toml`, maps it in
@@ -111,44 +111,50 @@ This moves the file into `~/dotfiles/.config/example/settings.toml`, maps it in
    ```toml
    "~/.config/example/settings.toml" = {}
    ```
-3. Preview the change with `mise dot diff`.
-4. Apply with `mise dot apply`.
+3. Preview the change with `mise dot:diff`.
+4. Apply with `mise dot:apply`.
 5. Review and commit the source file with Git.
 
 ## Repository Tasks (Mise)
 
-The repository provides task suites configured in `mise.toml`. Inspect available tasks with `mise tasks`:
+The repository provides task suites configured in `mise.toml`. Tasks can be run directly with `mise <task>` (or `mise run <task>`). Inspect available tasks with `mise tasks`:
+
+### Verification
+
+| Command | Purpose |
+| --- | --- |
+| `mise check` | Run all health checks (`dot:diff`, `nix:check`, and `git diff --check`) in one step |
 
 ### Dotfiles Management
 
 | Command | Purpose |
 | --- | --- |
-| `mise dot apply` / `mise run dot:apply` | Apply dotfile symlinks into `$HOME` |
-| `mise dot diff` / `mise run dot:diff` | Preview dotfile changes (dry run) |
-| `mise dot status` / `mise run dot:status` | Show status of managed dotfiles |
-| `mise dot add -l <path>` / `mise run dot:add <path>` | Add and symlink a new dotfile into this repo |
-| `mise dot unapply` / `mise run dot:unapply` | Remove managed symlinks from `$HOME` |
+| `mise dot:apply` | Apply dotfile symlinks into `$HOME` |
+| `mise dot:diff` | Preview dotfile changes (dry run) |
+| `mise dot:status` | Show status of managed dotfiles |
+| `mise dot:add <path>` | Add and symlink a new dotfile into this repo |
+| `mise dot:unapply` | Remove managed symlinks from `$HOME` |
 
 ### Nix-Darwin & Flake Management
 
 | Command | Purpose |
 | --- | --- |
-| `mise run nix:personal` *(alias: `darwin:personal`)* | Rebuild and apply personal macOS configuration |
-| `mise run nix:work` *(alias: `darwin:work`)* | Rebuild and apply work macOS configuration |
-| `mise run nix:check` *(alias: `darwin:check`)* | Verify flake evaluation without activating changes |
-| `mise run nix:build` | Build personal system configuration without activating |
-| `mise run nix:update` | Update `flake.lock` dependencies |
-| `mise run nix:gc` | Clean up old generations and garbage collect Nix store |
+| `mise nix:personal` *(alias: `darwin:personal`)* | Rebuild and apply personal macOS configuration |
+| `mise nix:work` *(alias: `darwin:work`)* | Rebuild and apply work macOS configuration |
+| `mise nix:check` *(alias: `darwin:check`)* | Verify flake evaluation without activating changes |
+| `mise nix:build` | Build personal system configuration without activating |
+| `mise nix:update` | Update `flake.lock` dependencies |
+| `mise nix:gc` | Clean up old generations and garbage collect Nix store |
 
 ### Custom Icons (`macicon`)
 
 | Command | Purpose |
 | --- | --- |
-| `mise run icon` | Run the `macicon` CLI |
-| `mise run icon:sync` | Regenerate missing icons across themes in `themes.json` |
-| `mise run icon:all` | Generate an icon across all registered themes |
-| `mise run icon:create-theme` | Batch generate existing icons into a new theme folder |
-| `mise run icon:preview` | Generate an icon with a 1024x1024 PNG preview |
+| `mise icon` | Run the `macicon` CLI |
+| `mise icon:sync` | Regenerate missing icons across themes in `themes.json` |
+| `mise icon:all` | Generate an icon across all registered themes |
+| `mise icon:create-theme` | Batch generate existing icons into a new theme folder |
+| `mise icon:preview` | Generate an icon with a 1024x1024 PNG preview |
 
 ## Packages And Layout
 
@@ -158,7 +164,7 @@ The repository provides task suites configured in `mise.toml`. Inspect available
 | `.warp/` | Warp terminal settings and themes |
 | `.zsh/` and `.zshrc` | Shell configuration and entrypoint |
 | `mise.toml` | Declarative dotfile mappings, tool definitions, and repository tasks |
-| `nix/` | nix-darwin and Nix flake system configuration (including Homebrew); operated via `mise run nix:*` |
+| `nix/` | nix-darwin and Nix flake system configuration (including Homebrew); operated via `mise nix:*` |
 | `raycast/` | Raycast import source; not mise-managed |
 
 Files such as `.DS_Store`, credentials, and machine-local state should not be added

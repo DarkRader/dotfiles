@@ -165,6 +165,7 @@
          }
       },
       "@mattisssa/store.raycast.spotify-player": {
+         "enabled": true,
          "entrypoints": {
             "devices": {
                "enabled": true,
