@@ -2,13 +2,11 @@
 {
   homebrew = {
     brews = [
-      "kubernetes-cli"
       "wireguard-tools"
       "yt-dlp"
     ];
     casks = [
       "iina"
-      "rancher"
     ];
     masApps = {
       # "Pages" = 361309726;
