@@ -1,4 +1,4 @@
-schema_version = 9
+schema_version = 10
 selected_device = "unit:60d1149a"
 
 [app_settings]
@@ -20,6 +20,7 @@ device_view_mode = "carousel"
 mouse_profile_target = "pointer"
 low_battery_notifications = true
 lock_key_notifications = true
+animate_desktop_switch = true
 
 [devices]
 
@@ -67,6 +68,9 @@ report_rate = false
 backlight = false
 easy_switch = false
 virtual_thumbwheel = false
+pointer_scaling = false
+force_sensing = false
+disable_keys = false
 
 [devices."unit:2c6bd633".identity.capabilities]
 buttons = true
@@ -84,6 +88,9 @@ report_rate = false
 backlight = true
 easy_switch = true
 virtual_thumbwheel = false
+pointer_scaling = false
+force_sensing = false
+disable_keys = true
 
 [devices."unit:2c6bd633".links."receiver:c323a340:slot:1".capabilities]
 buttons = true
@@ -101,11 +108,14 @@ report_rate = false
 backlight = true
 easy_switch = true
 virtual_thumbwheel = false
+pointer_scaling = false
+force_sensing = false
+disable_keys = true
 
 [devices."unit:60d1149a"]
 dpi = 1000
-invert_scroll = true
 smooth_wheel = true
+invert_scroll = true
 
 [devices."unit:60d1149a".identity]
 display_name = "MX Master 3"
@@ -149,6 +159,9 @@ report_rate = false
 backlight = false
 easy_switch = false
 virtual_thumbwheel = false
+pointer_scaling = false
+force_sensing = false
+disable_keys = false
 
 [devices."unit:60d1149a".identity.capabilities]
 buttons = true
@@ -166,6 +179,9 @@ report_rate = false
 backlight = false
 easy_switch = false
 virtual_thumbwheel = false
+pointer_scaling = false
+force_sensing = false
+disable_keys = false
 
 [devices."unit:60d1149a".bindings]
 DpiToggle = "ToggleSmartShift"
@@ -198,3 +214,6 @@ report_rate = false
 backlight = false
 easy_switch = false
 virtual_thumbwheel = false
+pointer_scaling = false
+force_sensing = false
+disable_keys = false
