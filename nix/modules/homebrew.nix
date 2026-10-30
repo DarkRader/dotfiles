@@ -42,7 +42,7 @@
       "monitorcontrol"
       "helium-browser"
       "vicinae"
-      "tailscale"
+      "tailscale-app"
       # "the-unarchiver"
       # "sf-symbols"
     ];
