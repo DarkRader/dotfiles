@@ -122,6 +122,34 @@
             }
          }
       },
+      "@danieldbird/store.raycast.youtube-music": {
+         "enabled": true,
+         "preferences": {
+            "browser": "net.imput.helium",
+            "urlPreference": "music",
+            "searchSource": "both",
+            "ff-rew-seconds": "10",
+            "keepPlayingWatcher": false,
+            "historyLimit": "0"
+         },
+         "entrypoints": {
+            "like": {
+               "shortcut": "super+control+L"
+            },
+            "next-track": {
+               "shortcut": "super+control+ARROWRIGHT"
+            },
+            "now-playing": {
+               "shortcut": "super+control+N"
+            },
+            "play-pause": {
+               "shortcut": "super+control+RETURN"
+            },
+            "previous-track": {
+               "shortcut": "super+control+ARROWLEFT"
+            }
+         }
+      },
       "@g0d/store.raycast.time": {
          "entrypoints": {
             "index": {
@@ -165,54 +193,43 @@
          }
       },
       "@mattisssa/store.raycast.spotify-player": {
-         "enabled": true,
+         "enabled": false,
          "entrypoints": {
             "devices": {
-               "enabled": true,
-               "shortcut": "super+control+A"
+               "enabled": true
             },
             "findLyrics": {
-               "enabled": true,
-               "shortcut": "super+control+F"
+               "enabled": true
             },
             "generatePlaylist": {
                "enabled": false
             },
             "like": {
-               "enabled": true,
-               "shortcut": "super+control+L"
+               "enabled": true
             },
             "next": {
-               "enabled": true,
-               "shortcut": "super+control+ARROWRIGHT"
+               "enabled": true
             },
             "nowPlaying": {
-               "enabled": true,
-               "shortcut": "super+control+N"
+               "enabled": true
             },
             "previous": {
-               "enabled": true,
-               "shortcut": "super+control+ARROWLEFT"
+               "enabled": true
             },
             "queue": {
-               "enabled": true,
-               "shortcut": "super+control+/"
+               "enabled": true
             },
             "search": {
-               "enabled": true,
-               "shortcut": "super+control+S"
+               "enabled": true
             },
             "togglePlayPause": {
-               "enabled": true,
-               "shortcut": "super+control+RETURN"
+               "enabled": false
             },
             "volume": {
-               "enabled": true,
-               "shortcut": "super+control+="
+               "enabled": true
             },
             "yourLibrary": {
-               "enabled": true,
-               "shortcut": "super+control+."
+               "enabled": true
             }
          }
       },
@@ -250,6 +267,9 @@
             },
             "com.apple.Passwords": {
                "alias": "pass"
+            },
+            "com.apple.finder": {
+               "shortcut": "alt+F"
             },
             "com.cron.electron": {
                "shortcut": "alt+C"
