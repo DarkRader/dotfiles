@@ -12,6 +12,9 @@ let
   '';
 in
 {
+  # Install terminfo for Alacritty, Kitty, and other modern terminal emulators
+  environment.enableAllTerminfo = true;
+
   environment.systemPackages = [
     # Editor
     pkgs.neovim
