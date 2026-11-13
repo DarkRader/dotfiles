@@ -32,6 +32,10 @@
         icon = getIcon "zed";
       }
       {
+        path = userApp "Alacritty";
+        icon = getIcon "alacritty";
+      }
+      {
         path = "/Applications/Warp.app";
         icon = getIcon "warp";
       }

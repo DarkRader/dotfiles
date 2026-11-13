@@ -5,6 +5,7 @@
 root = "~/dotfiles"
 
 [dotfiles]
+"~/.config/alacritty/alacritty.toml" = {}
 "~/.config/gh/config.yml" = {}
 "~/.config/gh/hosts.yml" = {}
 "~/.config/openlogi/config.toml" = {}

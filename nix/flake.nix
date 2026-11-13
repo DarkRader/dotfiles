@@ -7,12 +7,14 @@
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
     nix-homebrew.url = "github:zhaofengli/nix-homebrew";
     darwin-custom-icons.url = "github:ryanccn/nix-darwin-custom-icons";
+    mac-app-util.url = "github:hraban/mac-app-util";
   };
 
-  outputs = { self, nix-darwin, nix-homebrew, darwin-custom-icons, ... }:
+  outputs = { self, nix-darwin, nix-homebrew, darwin-custom-icons, mac-app-util, ... }:
   let
     commonModules = { user, home ? "/Users/${user}" }: [
       ./shared.nix
+      mac-app-util.darwinModules.default
       nix-homebrew.darwinModules.nix-homebrew
       darwin-custom-icons.darwinModules.default
       {

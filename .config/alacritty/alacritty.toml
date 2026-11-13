@@ -1,0 +1,62 @@
+# ~/.config/alacritty/alacritty.toml
+# Alacritty configuration managed declaratively via mise & dotfiles
+
+[general]
+live_config_reload = true
+
+[window]
+padding = { x = 14, y = 14 }
+decorations = "Transparent"
+opacity = 0.96
+blur = true
+option_as_alt = "Both"
+
+[font]
+size = 15.0
+
+[font.normal]
+family = "JetBrainsMono Nerd Font"
+style = "Regular"
+
+[font.bold]
+family = "JetBrainsMono Nerd Font"
+style = "Bold"
+
+[font.italic]
+family = "JetBrainsMono Nerd Font"
+style = "Italic"
+
+[cursor]
+style = { shape = "Beam", blinking = "On" }
+
+[colors.primary]
+background = "#191919"
+foreground = "#f1f1f1"
+
+[colors.cursor]
+text = "#191919"
+cursor = "#28eaff"
+
+[colors.selection]
+text = "#191919"
+background = "#28eaff"
+
+[colors.normal]
+black = "#121212"
+red = "#7b1fa2"
+green = "#6b1fff"
+yellow = "#9b28ff"
+blue = "#28b9ff"
+magenta = "#9b28ff"
+cyan = "#28e2ff"
+white = "#e6e6e6"
+
+[colors.bright]
+black = "#5a5a5a"
+red = "#c241ff"
+green = "#9b28ff"
+yellow = "#9b28ff"
+blue = "#28e2ff"
+magenta = "#9b28ff"
+cyan = "#28e2ff"
+white = "#ffffff"

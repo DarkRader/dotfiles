@@ -9,6 +9,7 @@
     pkgs.gh
 
     # Shell and terminal
+    pkgs.alacritty
     pkgs.oh-my-zsh
     pkgs.starship
     pkgs.eza
