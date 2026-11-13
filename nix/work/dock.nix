@@ -1,4 +1,4 @@
-{ userApp, ... }:
+{ ... }:
 {
   system.defaults.dock.persistent-apps = [
     "/Applications/Helium.app"
@@ -13,6 +13,6 @@
     "/Applications/Slack.app"
     "/Applications/Telegram.app"
     "/Applications/Zed.app"
-    (userApp "Alacritty")
+    "/Applications/Nix Apps/Alacritty.app"
   ];
 }

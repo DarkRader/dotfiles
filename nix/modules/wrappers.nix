@@ -62,7 +62,6 @@ in
             SRC=""
             for candidate in \
               "/Applications/$APP_NAME.app" \
-              "/Applications/Nix Apps/$APP_NAME.app" \
               "/System/Applications/$APP_NAME.app" \
               "/System/Applications/Utilities/$APP_NAME.app" \
               "/System/Cryptexes/App/System/Applications/$APP_NAME.app"; do
