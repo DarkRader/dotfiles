@@ -32,7 +32,6 @@
       "orbstack"
       "raycast"
       "readdle-spark"
-      "spotify"
       "warp"
       "zed"
       "telegram"

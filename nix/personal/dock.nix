@@ -8,7 +8,6 @@
     "/Applications/TickTick.app"
     "/Applications/Gemini.app"
     "/Applications/Discord.app"
-    "/Applications/Spotify.app"
     "/Applications/Telegram.app"
     "/Applications/Zed.app"
     "/Applications/Warp.app"
