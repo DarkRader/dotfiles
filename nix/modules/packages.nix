@@ -22,6 +22,8 @@ in
     # Core CLI and repository tools
     pkgs.git
     pkgs.gh
+    pkgs.ripgrep
+    pkgs.fd
 
     # Shell and terminal
     alacrittyWithCustomIcon

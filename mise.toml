@@ -8,6 +8,7 @@ root = "~/dotfiles"
 "~/.config/alacritty/alacritty.toml" = {}
 "~/.config/gh/config.yml" = {}
 "~/.config/gh/hosts.yml" = {}
+"~/.config/nvim" = {}
 "~/.config/openlogi/config.toml" = {}
 "~/.config/starship.toml" = {}
 "~/.config/tmux/tmux.conf" = {}
