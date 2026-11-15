@@ -15,4 +15,3 @@ map("n", "<leader>bd", "<cmd>bdelete<CR>", { desc = "Delete buffer" })
 
 -- LSP Diagnostic shortcuts (<leader> additions)
 map("n", "<leader>cd", vim.diagnostic.open_float, { desc = "Line diagnostics" })
-map("n", "<leader>e", vim.diagnostic.open_float, { desc = "Show diagnostic message" })
