@@ -19,6 +19,17 @@ return {
         prompt_prefix = " ",
         selection_caret = " ",
         path_display = { "truncate" },
+        file_ignore_patterns = { "%.git/" },
+      },
+      pickers = {
+        find_files = {
+          hidden = true,
+        },
+        live_grep = {
+          additional_args = function()
+            return { "--hidden" }
+          end,
+        },
       },
     },
   },
