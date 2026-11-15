@@ -10,6 +10,7 @@ root = "~/dotfiles"
 "~/.config/gh/hosts.yml" = {}
 "~/.config/openlogi/config.toml" = {}
 "~/.config/starship.toml" = {}
+"~/.config/tmux/tmux.conf" = {}
 "~/.config/vicinae/settings.json" = {}
 "~/.config/zed/settings.json" = {}
 
