@@ -298,6 +298,9 @@
             "net.imput.helium": {
                "shortcut": "alt+B"
             },
+            "org.alacritty": {
+               "shortcut": "alt+A"
+            },
             "ru.keepcoder.Telegram": {
                "shortcut": "alt+T"
             }

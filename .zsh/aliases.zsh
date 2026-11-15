@@ -35,6 +35,7 @@ alias reservium-api="cd ~/Git/CloudRader/reservium-api/"
 alias reservium-ui="cd ~/Git/CloudRader/reservium-ui/"
 alias darkrader="cd ~/Git/DarkRader"
 alias dotfiles="cd ~/dotfiles"
+alias homelab="cd ~/Git/DarkRader/homelab"
 
 # Tools
 alias k="kubectl"
