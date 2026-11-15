@@ -24,6 +24,9 @@ in
     pkgs.gh
     pkgs.ripgrep
     pkgs.fd
+    pkgs.tree-sitter
+    pkgs.lazygit
+    pkgs.fzf
 
     # Shell and terminal
     alacrittyWithCustomIcon

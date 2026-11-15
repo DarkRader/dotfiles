@@ -1,8 +1,7 @@
 return {
   {
     "folke/tokyonight.nvim",
-    lazy = false,
-    priority = 1000,
+    lazy = true,
     opts = {
       style = "night",
       transparent = false,
@@ -17,9 +16,11 @@ return {
         colors.bg_sidebar = "#161616"
       end,
     },
-    config = function(_, opts)
-      require("tokyonight").setup(opts)
-      vim.cmd.colorscheme("tokyonight")
-    end,
+  },
+  {
+    "LazyVim/LazyVim",
+    opts = {
+      colorscheme = "tokyonight",
+    },
   },
 }

@@ -1,8 +1,2 @@
--- Remap space as leader key (must happen before plugins are loaded)
-vim.g.mapleader = " "
-vim.g.maplocalleader = "\\"
-
--- Load core configuration
-require("config.options")
-require("config.keymaps")
+-- bootstrap lazy.nvim, LazyVim and your plugins
 require("config.lazy")
