@@ -32,10 +32,6 @@
         icon = getIcon "zed";
       }
       {
-        path = "/Applications/Warp.app";
-        icon = getIcon "warp";
-      }
-      {
         path = "/Applications/TickTick.app";
         icon = getIcon "ticktick";
       }

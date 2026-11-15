@@ -13,8 +13,9 @@ files in this repository through declarative symlinks in `$HOME`.
 - Do not commit symlinks from your home directory. Symlinks are generated
   by `mise` and belong outside the repository.
 
-Managed configurations include `.config/` (GitHub CLI, OpenLogi, Starship, Zed),
-`.warp/` settings and themes, `.zsh/`, and root-level files such as `.zshrc`.
+Managed configurations include `.config/` (Alacritty terminal, tmux, Zed editor,
+Starship prompt, Vicinae launcher, GitHub CLI, OpenLogi), `.warp/` settings and
+themes (preserved for reference), `.zsh/`, and root-level files such as `.zshrc`.
 `nix/` and `raycast/` remain versioned in Git but are intentionally
 excluded from `[dotfiles]` in `mise.toml`: Nix is managed declaratively via
 nix-darwin and repository `mise` tasks (including Homebrew via nix-homebrew),
@@ -60,8 +61,10 @@ Or inspect individual symlinks:
 ```bash
 ls -l ~/.zshrc
 readlink ~/.zshrc
-ls -ld ~/.config/starship.toml
-readlink ~/.config/starship.toml
+ls -ld ~/.config/alacritty/alacritty.toml
+readlink ~/.config/alacritty/alacritty.toml
+ls -ld ~/.config/tmux/tmux.conf
+readlink ~/.config/tmux/tmux.conf
 ```
 
 Inspected paths should resolve into `~/dotfiles`. Start a new shell after linking
@@ -160,8 +163,8 @@ The repository provides task suites configured in `mise.toml`. Tasks can be run 
 
 | Path | Purpose |
 | --- | --- |
-| `.config/` | Application configurations (GitHub CLI, OpenLogi, Starship, Zed) |
-| `.warp/` | Warp terminal settings and themes |
+| `.config/` | Application configurations (Alacritty, tmux, Zed, Starship, Vicinae, GitHub CLI, OpenLogi) |
+| `.warp/` | Archived Warp terminal settings and themes (preserved for reference) |
 | `.zsh/` and `.zshrc` | Shell configuration and entrypoint |
 | `mise.toml` | Declarative dotfile mappings, tool definitions, and repository tasks |
 | `nix/` | nix-darwin and Nix flake system configuration (including Homebrew); operated via `mise nix:*` |

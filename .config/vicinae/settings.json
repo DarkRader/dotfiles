@@ -286,9 +286,6 @@
             "com.spotify.client": {
                "shortcut": "alt+M"
             },
-            "dev.warp.Warp-Stable": {
-               "shortcut": "alt+W"
-            },
             "dev.zed.Zed": {
                "shortcut": "alt+Z"
             },

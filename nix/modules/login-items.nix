@@ -39,7 +39,7 @@ in
         "/Applications/Raycast.app"
         "/Applications/OrbStack.app"
         {
-          path = "/Applications/Warp.app";
+          path = "/Applications/Nix Apps/Alacritty.app";
           hidden = true;
         }
       ];

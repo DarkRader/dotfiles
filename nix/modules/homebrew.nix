@@ -32,7 +32,6 @@
       "orbstack"
       "raycast"
       "readdle-spark"
-      "warp"
       "zed"
       "telegram"
       "notion-calendar"

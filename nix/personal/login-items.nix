@@ -6,6 +6,6 @@
     "/Applications/Raycast.app"
     "/Applications/Safari.app"
     "/Applications/TickTick.app"
-    "/Applications/Warp.app"
+    "/Applications/Nix Apps/Alacritty.app"
   ];
 }
