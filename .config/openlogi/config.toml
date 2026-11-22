@@ -60,6 +60,29 @@ equad = true
 btle = true
 bluetooth = false
 
+[devices."unit:2c6bd633".links."receiver:c323a340:slot:1".capabilities]
+buttons = true
+pointer = false
+lighting = false
+scroll_inversion = false
+hires_wheel = false
+thumbwheel = false
+haptic_feedback = false
+haptic_panel = false
+dpi_gestures = false
+fn_lock = true
+os_layout = true
+report_rate = false
+backlight = true
+easy_switch = true
+virtual_thumbwheel = false
+pointer_scaling = false
+force_sensing = false
+disable_keys = true
+onboard_profiles = false
+button_spy = false
+sidetone = false
+
 [devices."unit:2c6bd633".links."direct:046d:b361".capabilities]
 buttons = true
 pointer = false
@@ -107,29 +130,6 @@ button_spy = false
 sidetone = false
 
 [devices."unit:2c6bd633".links."unknown:slot:1:unit:2c6bd633".capabilities]
-buttons = true
-pointer = false
-lighting = false
-scroll_inversion = false
-hires_wheel = false
-thumbwheel = false
-haptic_feedback = false
-haptic_panel = false
-dpi_gestures = false
-fn_lock = true
-os_layout = true
-report_rate = false
-backlight = true
-easy_switch = true
-virtual_thumbwheel = false
-pointer_scaling = false
-force_sensing = false
-disable_keys = true
-onboard_profiles = false
-button_spy = false
-sidetone = false
-
-[devices."unit:2c6bd633".links."receiver:c323a340:slot:1".capabilities]
 buttons = true
 pointer = false
 lighting = false
@@ -266,6 +266,14 @@ Click = "AppExpose"
 mode = "free"
 auto_disengage = 10
 tunable_torque = 0
+
+[devices."unit:60d1149a".momentum_scrolling]
+enabled = true
+pixels_per_notch = 28
+glide_shape = "smooth"
+max_glide_speed = 8000
+glide_ms = 400
+repeat_boost = 135
 
 [devices."unit:60d1149a".links."receiver:c323a340:slot:2".capabilities]
 buttons = true
