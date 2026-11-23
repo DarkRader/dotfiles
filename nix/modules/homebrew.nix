@@ -41,6 +41,7 @@
       "helium-browser"
       "vicinae"
       "tailscale-app"
+      "devpod"
       # "the-unarchiver"
       # "sf-symbols"
     ];
