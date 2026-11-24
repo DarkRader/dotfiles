@@ -42,6 +42,7 @@
       "vicinae"
       "tailscale-app"
       "devpod"
+      "nikitabobko/tap/aerospace"
       # "the-unarchiver"
       # "sf-symbols"
     ];

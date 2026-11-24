@@ -243,6 +243,19 @@
             }
          }
       },
+      "@sparkmailapp/store.raycast.spark": {
+         "entrypoints": {
+            "search-mail": {
+               "alias": "emser"
+            },
+            "show-folders": {
+               "alias": "emfol"
+            },
+            "show-inbox": {
+               "alias": "emin"
+            }
+         }
+      },
       "@vimtor/store.raycast.video-downloader": {
          "preferences": {
             "downloadPath": "/Users/Artyom_1/Downloads Video",
